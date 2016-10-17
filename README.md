@@ -39,7 +39,7 @@ This plugin is intended to launch **native** navigation apps and therefore will 
     
 #### Install the plugin
 
-    $ cordova plugin add https://github.com/portizb/TvServices.git
+    $ cordova plugin add https://github.com/portizb/MiViewTV.git
     
 
 ## Building and running
