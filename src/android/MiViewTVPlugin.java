@@ -33,9 +33,10 @@ public class MiViewTVPlugin extends CordovaPlugin {
     public static final String ACTION_DEREGISTER_FOR_PROGRAM_GUIDE_UPDATES = "deregisterForProgramGuideUpdates";
 
     // Flag indicates if the service is bind
-    private boolean isBind = false;
-
-    private MiViewTVService miViewTVService;
+    private boolean serviceConnected = false;
+    private Object serviceConnectedLock = new Object();
+    
+    private MiViewTVService miViewTVService = null;
 
     // Defines callbacks for service binding, passed to bindService
     private final ServiceConnection connection = new ServiceConnection() {
@@ -45,7 +46,10 @@ public class MiViewTVPlugin extends CordovaPlugin {
                     (MiViewTVService.LocalBinder) service;
             miViewTVService = binder.getService();
 
-            isBind = true;
+            synchronized(mServiceConnectedLock) {
+					serviceConnected = true;
+					serviceConnectedLock.notify();
+				}
         }
 
         @Override
@@ -60,7 +64,7 @@ public class MiViewTVPlugin extends CordovaPlugin {
 
         if (isServiceRunning()) {
 
-            if (!isBind)
+            if (!serviceConnected)
                 startService();
 
             Log.d(LOG_TAG, "action: " + action);
@@ -146,14 +150,27 @@ public class MiViewTVPlugin extends CordovaPlugin {
      */
     private void startService()
     {
-        Activity context = cordova.getActivity();
-        Intent intent = new Intent(context, MiViewTVService.class);
-
         try {
-            context.bindService(intent, connection, Context.BIND_AUTO_CREATE);
-            context.startService(intent);
 
-            isBind = true;
+            Activity context = cordova.getActivity();
+            Intent intent = new Intent(context, MiViewTVService.class);
+            context.startService(intent);
+            
+            if (context.bindService(intent, connection, Context.BIND_AUTO_CREATE)) {    
+                Log.d(LOCALTAG, "Waiting for service connected lock");
+				
+                synchronized(serviceConnectedLock) {
+					while (miViewTVService==null) {
+						try {
+							serviceConnectedLock.wait();
+						} catch (InterruptedException e) {
+							Log.d(LOG_TAG, "Interrupt occurred while waiting for connection", e);
+						}
+					}
+                     
+					serviceConnected = true
+				}
+			}
 
         } catch (Exception e) {
             Log.d(LOG_TAG, "startService failed ", e);
