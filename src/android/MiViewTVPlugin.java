@@ -54,8 +54,11 @@ public class MiViewTVPlugin extends CordovaPlugin {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-	    miViewTVService = null;
-	    serviceConnected = false;
+	    synchronized(serviceConnectedLock) {
+		serviceConnected = false;
+		miViewTVService = null;
+		serviceConnectedLock.notify();
+	    }
         }
     };
 
