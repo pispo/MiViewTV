@@ -63,6 +63,8 @@ public class MiViewTVPlugin extends CordovaPlugin {
             if (!isBind)
                 startService();
 
+            Log.d(LOG_TAG, "action: " + action);
+
             if (ACTION_GET_CHANNELS.equalsIgnoreCase(action)) {
 
                 cordova.getThreadPool().execute(new Runnable() {
@@ -99,6 +101,9 @@ public class MiViewTVPlugin extends CordovaPlugin {
             else if(ACTION_DEREGISTER_FOR_PROGRAM_GUIDE_UPDATES.equals(action)) {
                 return true;
             }
+        }
+        else {
+            Log.d(LOG_TAG, "The service is not running");
         }
 
         callbackContext.error ("Invalid action");
