@@ -44,9 +44,9 @@ public class MiViewTVPlugin extends CordovaPlugin {
         public void onServiceConnected(ComponentName name, IBinder service) {
             MiViewTVService.LocalBinder binder =
                     (MiViewTVService.LocalBinder) service;
-            miViewTVService = binder.getService();
 
             synchronized(serviceConnectedLock) {
+		miViewTVService = binder.getService();
 		serviceConnected = true;
 		serviceConnectedLock.notify();
 	    }
