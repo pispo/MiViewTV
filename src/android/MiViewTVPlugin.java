@@ -47,14 +47,15 @@ public class MiViewTVPlugin extends CordovaPlugin {
             miViewTVService = binder.getService();
 
             synchronized(mServiceConnectedLock) {
-					serviceConnected = true;
-					serviceConnectedLock.notify();
-				}
+		serviceConnected = true;
+		serviceConnectedLock.notify();
+	    }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            isBind = false;
+	    miViewTVService = null;
+	    serviceConnected = false;
         }
     };
 
@@ -182,12 +183,10 @@ public class MiViewTVPlugin extends CordovaPlugin {
         Activity context = cordova.getActivity();
         Intent intent = new Intent(context, MiViewTVService.class);
 
-        if (!isBind)
+        if (!serviceConnected)
             return;
 
         context.unbindService(connection);
         context.stopService(intent);
-
-        isBind = false;
     }
 }
