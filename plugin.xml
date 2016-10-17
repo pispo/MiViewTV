@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android" 
         id="com.movistar.tvservices" version="0.7.0">
   
-  <name>TvServicesPlugin</name>
+  <name>MiViewTVPlugin</name>
   <description>Cordova MiViewTV Service Plugin</description>
 
   <engines>
@@ -55,6 +55,7 @@
       <!-- cordova plugin src files -->
       <source-file src="src/android/MiViewTVPlugin.java" target-dir="src/com/movistar/tvservices/cordova/plugin" />
       <source-file src="src/android/MiViewTVService.java" target-dir="src/com/movistar/tvservices/cordova/plugin" />
+      <source-file src="src/android/MiViewTVBootReceiver.java" target-dir="src/com/movistar/tvservices/cordova/plugin" />
     </platform>
 
 </plugin>
