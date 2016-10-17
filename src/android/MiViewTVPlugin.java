@@ -64,10 +64,27 @@ public class MiViewTVPlugin extends CordovaPlugin {
                 startService();
 
             if (ACTION_GET_CHANNELS.equalsIgnoreCase(action)) {
-                miViewTVService.getChannels ();
+
+                cordova.getThreadPool().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        miViewTVService.getChannels ();
+                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
+                    }
+                });
+
                 return true;
             }
             else if(ACTION_GET_PROGRAM_GUIDE.equals(action)) {
+
+                cordova.getThreadPool().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        miViewTVService.getProgramGuide ();
+                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
+                    }
+                });
+
                 return true;
             }
             else if(ACTION_REGISTER_FOR_CHANNEL_UPDATES.equals(action)) {
@@ -83,6 +100,8 @@ public class MiViewTVPlugin extends CordovaPlugin {
                 return true;
             }
         }
+
+        callbackContext.error ("Invalid action");
 
         return false;
     }
