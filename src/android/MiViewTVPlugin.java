@@ -46,7 +46,7 @@ public class MiViewTVPlugin extends CordovaPlugin {
                     (MiViewTVService.LocalBinder) service;
             miViewTVService = binder.getService();
 
-            synchronized(mServiceConnectedLock) {
+            synchronized(serviceConnectedLock) {
 		serviceConnected = true;
 		serviceConnectedLock.notify();
 	    }
@@ -161,17 +161,17 @@ public class MiViewTVPlugin extends CordovaPlugin {
                 Log.d(LOCALTAG, "Waiting for service connected lock");
 				
                 synchronized(serviceConnectedLock) {
-					while (miViewTVService==null) {
-						try {
-							serviceConnectedLock.wait();
-						} catch (InterruptedException e) {
-							Log.d(LOG_TAG, "Interrupt occurred while waiting for connection", e);
-						}
-					}
-                     
-					serviceConnected = true
+			while (miViewTVService==null) {
+				try {
+					serviceConnectedLock.wait();
+				} catch (InterruptedException e) {
+					Log.d(LOG_TAG, "Interrupt occurred while waiting for connection", e);
 				}
 			}
+                     
+			serviceConnected = true
+		}
+	    }
 
         } catch (Exception e) {
             Log.d(LOG_TAG, "startService failed ", e);
