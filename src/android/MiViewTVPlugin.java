@@ -1,13 +1,14 @@
 package com.movistar.tvservices.cordova.plugin;
 
 import org.apache.cordova.*;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
 
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunninServiceInfo;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 
 import android.content.Context;
 import android.content.Intent;
@@ -99,8 +100,8 @@ public class MiViewTVPlugin extends CordovaPlugin {
                 }
             }
 
-        } catch (Exception ex) {
-            Log.d(LOG_TAG, "isServiceRunning failed ", ex);
+        } catch (Exception e) {
+            Log.d(LOG_TAG, "isServiceRunning failed ", e);
         }
 
         return false;
@@ -131,7 +132,7 @@ public class MiViewTVPlugin extends CordovaPlugin {
             isBind = true;
 
         } catch (Exception e) {
-            Log.d(LOG_TAG, "startService failed ", ex);
+            Log.d(LOG_TAG, "startService failed ", e);
         }
     }
 
