@@ -56,7 +56,7 @@ public class MiViewTVPlugin extends CordovaPlugin {
 
     // Executes the action request
     @Override
-    public boolean execute (String action, JSONArray args, CallbackContext callback) throws JSONException {
+    public boolean execute (String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
         if (isServiceRunning()) {
 
