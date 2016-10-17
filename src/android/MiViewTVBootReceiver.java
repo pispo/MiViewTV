@@ -11,9 +11,9 @@ public class MiViewTVBootReceiver extends BroadcastReceiver {
 
     @Override  
     public void onReceive(Context context, Intent intent) {
-	Intent serviceIntent = new Intent(context, MiViewTVService.class);         
-	context.startService(serviceIntent);
+	    Intent serviceIntent = new Intent(context, MiViewTVService.class);
+	    context.startService(serviceIntent);
 
-	Log.v(LOG_TAG, "getChannels");
+	    Log.v(LOG_TAG, "MiViewTVService boot");
     } 
 } 
