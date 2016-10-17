@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" 
+        xmlns:android="http://schemas.android.com/apk/res/android" 
+        id="com.movistar.tvservices" version="0.7.0">
+  
+  <name>TvServicesPlugin</name>
+  <description>Cordova MiViewTV Service Plugin</description>
+
+  <engines>
+    <engine name="cordova" version=">=3.4.0"/>
+  </engines>
+
+  <asset src="www/miviewtv.js" target="js/miviewtv.js"/>
+
+    <js-module src="www/miviewtv.js" name="miviewtv">
+      <clobbers target="miviewtv" />
+    </js-module>
+
+    <license>Apache 2.0 License</license>
+
+    <platform name="android">
+      <config-file target="res/xml/config.xml" parent="/*">
+        <feature name="MiViewTVPlugin">
+          <param name="android-package" value="com.movistar.tvservices.cordova.plugin.MiViewTVPlugin"/>
+          <param name="onload" value="true" />
+        </feature>
+      </config-file>
+            
+      <config-file target="res/xml/config.xml" parent="/*">
+        <preference name="KeepRunning" value="true" />
+      </config-file>
+
+      <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <!--
+         * Puts the service in a foreground state, where the system considers
+         * it to be something the user is actively aware of and thus not a
+         * candidate for killing when low on memory.
+        -->
+        <service android:name="com.movistar.tvservices.cordova.plugin.MiViewTVService" />
+      </config-file>
+            
+      <config-file target="AndroidManifest.xml" parent="/manifest">
+       <!-- <uses-permission android:name="android.permission.WAKE_LOCK" /> -->
+        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+      </config-file>
+
+      <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <receiver android:name="com.movistar.tvservices.cordova.plugin.MiViewTVBootReceiver">
+           <intent-filter>
+              <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+           </intent-filter>
+        </receiver>
+      </config-file>
+       
+      <!-- cordova plugin src files -->
+      <source-file src="src/android/MiViewTVPlugin.java" target-dir="src/com/movistar/tvservices/cordova/plugin" />
+      <source-file src="src/android/MiViewTVService.java" target-dir="src/com/movistar/tvservices/cordova/plugin" />
+    </platform>
+
+</plugin>
