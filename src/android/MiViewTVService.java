@@ -118,7 +118,7 @@ public class MiViewTVService extends Service {
                 .getLaunchIntentForPackage(pkgName);
 
         Notification.Builder notification = new Notification.Builder(context)
-                .setContentTitle("MiViewTV Services")
+                .setContentTitle("MiViewTV Service")
                 .setContentText("MiViewTV Service is running")
                 .setTicker("MiViewTV Service is running")
                 .setOngoing(true)
