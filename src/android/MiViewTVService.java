@@ -1,5 +1,7 @@
 package com.movistar.tvservices.cordova.plugin;
 
+import org.json.JSONObject;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -14,8 +16,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
 
-import org.json.JSONObject;
-
+import android.util.Log;
 
 /**
  * Puts the service in a foreground state, where the system considers it to be
@@ -23,6 +24,8 @@ import org.json.JSONObject;
  * when low on memory.
  */
 public class MiViewTVService extends Service {
+
+    private static final String LOG_TAG = MiViewTVService.class.getSimpleName();
 
     // Binder given to clients
     private final IBinder binder = new LocalBinder();
@@ -140,12 +143,13 @@ public class MiViewTVService extends Service {
         return resId;
     }
 
-    public void getChannelsList()
+    public void getChannels()
     {
+        Log.v(LOG_TAG, "getChannels");
     }
     
     public void getProgramGuide()
     {
-
+        Log.v(LOG_TAG, "getProgramGuide");
     }
 }
