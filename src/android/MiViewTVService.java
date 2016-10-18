@@ -63,6 +63,8 @@ public class MiViewTVService extends Service {
     public void onCreate () {
         super.onCreate();
         keepAwake();
+
+        Log.v(LOG_TAG, "onCreate");
     }
 
     /**
@@ -72,6 +74,8 @@ public class MiViewTVService extends Service {
     public void onDestroy() {
         super.onDestroy();
         sleepWell();
+
+        Log.v(LOG_TAG, "onDestroy");
     }
 
     /**
@@ -143,13 +147,11 @@ public class MiViewTVService extends Service {
         return resId;
     }
 
-    public void getChannels()
-    {
+    public void getChannels() {
         Log.v(LOG_TAG, "getChannels");
     }
     
-    public void getProgramGuide()
-    {
+    public void getProgramGuide() {
         Log.v(LOG_TAG, "getProgramGuide");
     }
 }
