@@ -161,7 +161,7 @@ public class MiViewTVPlugin extends CordovaPlugin {
             context.startService(intent);
             
             if (context.bindService(intent, connection, Context.BIND_AUTO_CREATE)) {    
-                Log.d(LOCALTAG, "Waiting for service connected lock");
+                Log.d(LOG_TAG, "Waiting for service connected lock");
 				
                 synchronized(serviceConnectedLock) {
 			while (miViewTVService==null) {
