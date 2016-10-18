@@ -11,19 +11,6 @@ public class MiViewTVInstallReceiver extends BroadcastReceiver {
 
     @Override  
     public void onReceive(Context context, Intent intent) {
-package com.movistar.tvservices.cordova.plugin;
-
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-
-import android.util.Log;
-
-public class MiViewTVInstallReceiver extends BroadcastReceiver {  
-    private static final String LOG_TAG = MiViewTVInstallReceiver.class.getSimpleName();	
-
-    @Override  
-    public void onReceive(Context context, Intent intent) {
         String action = null;
 
         if (intent != null) {
