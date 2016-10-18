@@ -50,12 +50,20 @@
               <action android:name="android.intent.action.BOOT_COMPLETED"></action>
            </intent-filter>
         </receiver>
+        <receiver android:name="com.movistar.tvservices.cordova.plugin.MiViewTVInstallReceiver"
+           android:enabled="false" android:exported="false">
+           <intent-filter>
+              <action android:name="android.intent.action.PACKAGE_ADDED"/>
+              <data android:scheme="package"/>
+           </intent-filter>
+        </receiver>
       </config-file>
-       
+                  
       <!-- cordova plugin src files -->
       <source-file src="src/android/MiViewTVPlugin.java" target-dir="src/com/movistar/tvservices/cordova/plugin" />
       <source-file src="src/android/MiViewTVService.java" target-dir="src/com/movistar/tvservices/cordova/plugin" />
       <source-file src="src/android/MiViewTVBootReceiver.java" target-dir="src/com/movistar/tvservices/cordova/plugin" />
+      <source-file src="src/android/MiViewTVInstallReceiver.java" target-dir="src/com/movistar/tvservices/cordova/plugin" />
     </platform>
 
 </plugin>
