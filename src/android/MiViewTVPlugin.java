@@ -172,7 +172,7 @@ public class MiViewTVPlugin extends CordovaPlugin {
 				}
 			}
                      
-			serviceConnected = true
+			serviceConnected = true;
 		}
 	    }
 
