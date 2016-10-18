@@ -46,19 +46,23 @@ public class MiViewTVPlugin extends CordovaPlugin {
                     (MiViewTVService.LocalBinder) service;
 
             synchronized(serviceConnectedLock) {
-		miViewTVService = binder.getService();
-		serviceConnected = true;
-		serviceConnectedLock.notify();
-	    }
+		        miViewTVService = binder.getService();
+		        serviceConnected = true;
+		        serviceConnectedLock.notify();
+
+                Log.d(LOG_TAG, "MiViewTV Service connected");
+	        }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-	    synchronized(serviceConnectedLock) {
-		serviceConnected = false;
-		miViewTVService = null;
-		serviceConnectedLock.notify();
-	    }
+	        synchronized(serviceConnectedLock) {
+		        serviceConnected = false;
+		        miViewTVService = null;
+		        serviceConnectedLock.notify();
+
+                Log.d(LOG_TAG, "MiViewTV Service disconnected");
+	        }
         }
     };
 
@@ -98,23 +102,60 @@ public class MiViewTVPlugin extends CordovaPlugin {
                 return true;
             }
             else if(ACTION_REGISTER_FOR_CHANNEL_UPDATES.equals(action)) {
+
+                cordova.getThreadPool().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
+                    }
+                });
+
                 return true;
             }
             else if(ACTION_REGISTER_FOR_PROGRAM_GUIDE_UPDATES.equals(action)) {
+
+                cordova.getThreadPool().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
+                    }
+                });
+
+
                 return true;
             }
             else if(ACTION_DEREGISTER_FOR_CHANNEL_UPDATES.equals(action)) {
+
+                cordova.getThreadPool().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
+                    }
+                });
+
+
                 return true;
             }
             else if(ACTION_DEREGISTER_FOR_PROGRAM_GUIDE_UPDATES.equals(action)) {
+
+                cordova.getThreadPool().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
+                    }
+                });
+
+
                 return true;
             }
+
+            Log.d(LOG_TAG, "Invalid action");
+            callbackContext.error ("Invalid action");
         }
         else {
             Log.d(LOG_TAG, "The service is not running");
+            callbackContext.error ("The service is not running");
         }
-
-        callbackContext.error ("Invalid action");
 
         return false;
     }
@@ -146,6 +187,8 @@ public class MiViewTVPlugin extends CordovaPlugin {
     public void onDestroy() {
         super.onDestroy();
         stopService();
+
+        Log.v(LOG_TAG, "onDestroy");
     }
 
     /**
@@ -164,17 +207,19 @@ public class MiViewTVPlugin extends CordovaPlugin {
                 Log.d(LOG_TAG, "Waiting for service connected lock");
 				
                 synchronized(serviceConnectedLock) {
-			while (miViewTVService==null) {
-				try {
-					serviceConnectedLock.wait();
-				} catch (InterruptedException e) {
-					Log.d(LOG_TAG, "Interrupt occurred while waiting for connection", e);
-				}
-			}
+
+			        while (miViewTVService==null) {
+				        try {
+					        serviceConnectedLock.wait();
+				        } catch (InterruptedException e) {
+					        Log.d(LOG_TAG, "Interrupt occurred while waiting for connection", e);
+				        }
+			        }
                      
-			serviceConnected = true;
-		}
-	    }
+			        serviceConnected = true;
+                    Log.d(LOG_TAG, "MiViewTV Service started");
+		        }
+	        }
 
         } catch (Exception e) {
             Log.d(LOG_TAG, "startService failed ", e);
@@ -191,5 +236,7 @@ public class MiViewTVPlugin extends CordovaPlugin {
 
         context.unbindService(connection);
         context.stopService(intent);
+
+        Log.d(LOG_TAG, "MiViewTV Service stopped");
     }
 }
