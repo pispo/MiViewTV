@@ -51,6 +51,8 @@
            </intent-filter>
         </receiver>
       </config-file>
+            
+      <framework src="src/android/MiViewTVLib" custom="true" />
                   
       <!-- cordova plugin src files -->
       <source-file src="src/android/MiViewTVPlugin.java" target-dir="src/com/movistar/tvservices/cordova/plugin" />
