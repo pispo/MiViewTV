@@ -1,4 +1,4 @@
-package com.MovistarPlusService;
+package com.movistar.miviewtv.core.net;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
