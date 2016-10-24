@@ -9,7 +9,6 @@ import java.nio.charset.StandardCharsets;
  * Copyright Telefónica de España SAU 2015
  */
 
-
 public class MovistarFile {
 
     /**
@@ -40,9 +39,7 @@ public class MovistarFile {
     /**
      * Constructors
      */
-
     public MovistarFile() {
-
     }
     
     public MovistarFile(String filename, int fragments, int filetype, long time) {
@@ -70,12 +67,14 @@ public class MovistarFile {
             // Ha cambiado la version empezamos de nuevo
             this.cleanup();
         }
+        
         if (null == fragmentsBuffer[fragment]) {
             fragmentsBuffer[fragment] = new byte[fragmentLength];
             System.arraycopy(fragmentBuffer, fragmentOffset + headerOffset, fragmentsBuffer[fragment], 0, fragmentLength);
             completedFragments++;
             bufferLength += fragmentLength;
         }
+        
         if ((completedFragments == totalFragments) && (null != this.fragmentsBuffer)) {
             // tenemos el fichero completo
             int offset = 0;
@@ -85,7 +84,9 @@ public class MovistarFile {
                 System.arraycopy(currentBuffer, 0, bytes, offset, currentBuffer.length);
                 offset += currentBuffer.length;
             }
+            
             fragmentsBuffer = null;
+            
             if (type == TYPE_ASCII || type == TYPE_XML) {
                 string = new String(bytes, StandardCharsets.UTF_8);
                 bytes = null;
@@ -93,6 +94,7 @@ public class MovistarFile {
             // TODO: verify CRC
             return FILE_COMPLETE;
         }
+        
         return completedFragments;
     }
 
@@ -103,7 +105,6 @@ public class MovistarFile {
         else {
             return null;
         }
-
     }
     
     public byte[] getBytes() {
