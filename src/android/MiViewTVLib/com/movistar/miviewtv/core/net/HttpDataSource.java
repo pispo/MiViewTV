@@ -1,4 +1,4 @@
-package com.MovistarPlusService;
+package com.movistar.miviewtv.core.net;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
