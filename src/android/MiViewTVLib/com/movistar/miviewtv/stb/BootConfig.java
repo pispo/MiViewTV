@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class BootConfig {
-   private static final String LOG_TAG = Loader.class.getSimpleName();
+   private static final String LOG_TAG = BootConfig.class.getSimpleName();
   
    private static final String DEFAULT_OPCH_ADDR = "239.0.2.10";
    private static final int DEFAULT_POCH_PORT = 22222;
