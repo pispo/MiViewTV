@@ -12,7 +12,7 @@ public class ConfigLoader {
 /**
  * Constants:
  */
-    public static final String LOG_TAG = Opch.class.getSimpleName();
+    public static final String LOG_TAG = ConfigLoader.class.getSimpleName();
 
     private static final String defaultAddress = "239.0.2.10";
     private static final int defaultPort = 22222;
