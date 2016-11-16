@@ -34,7 +34,7 @@ public class MulticastDataSource {
             if (errorString != "") {
                 errorString += " and ";
             }
-            errorString += " Port (" + port + ") is out of range [1024-65536]";
+            errorString += "Port (" + port + ") is out of range [1024-65536]";
         }
 
         if (errorString != "") {
