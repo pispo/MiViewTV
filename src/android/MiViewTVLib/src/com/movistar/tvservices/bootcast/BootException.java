@@ -1,6 +1,6 @@
 package com.movistar.tvservices.bootcast;
 
-import java.io.IOException;
+import java.io.RuntimeException;
 
 /**
  * Exception thrown for all bootconfig parsing errors.
