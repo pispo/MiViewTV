@@ -1,4 +1,4 @@
-package com.movistar.tvservices.opch.infocast;
+package com.movistar.tvservices.bootcast.infocast;
 
 /**
  * Created by Sergio Moreno Mozota on 30/11/15.
