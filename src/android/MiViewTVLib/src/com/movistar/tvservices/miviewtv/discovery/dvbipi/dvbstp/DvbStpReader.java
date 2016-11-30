@@ -114,7 +114,7 @@ public class DvbStpReader {
 
         for (MetadataContent content : metadataContents) {
             if (!content.isBufferCompleted())
-                metadataContents.remove(content.getId())
+                metadataContents.remove(content.getId());
         }
 
         Log.d(LOG_TAG, "finished DvbStp processing.");
