@@ -7,7 +7,7 @@ import com.movistar.tvservices.bootcast.infocast.InfocastException;
 import android.util.Log;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Map;
 
 public class BootLoader {
     private static final String LOG_TAG = BootLoader.class.getSimpleName();
