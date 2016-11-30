@@ -1,6 +1,6 @@
 package com.movistar.tvservices.bootcast.infocast;
 
-import java.io.IOException;
+import java.io.RuntimeException;
 
 /**
  * Exception thrown for all infocast errors.
