@@ -1,4 +1,4 @@
-package com.movistar.miviewtv.bootconfig;
+package com.movistar.tvservices.bootcast;
 
 import java.io.IOException;
 
