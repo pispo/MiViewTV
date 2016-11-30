@@ -5,7 +5,7 @@ public class BCGDiscoveryData {
 
     private Map<String, BCG> guides = new HashMap<String, BCG>();
 
-    public BCG {
+    public final class BCG {
         private String id;
         private int version;
         private HashMap<String, TransportMode> transportModes;
