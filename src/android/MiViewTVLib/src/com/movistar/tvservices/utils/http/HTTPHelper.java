@@ -57,13 +57,23 @@ public class HTTPHelper {
     private static int safelyConnect(HttpURLConnection connection) throws IOException {
         try {
             connection.connect();
-        } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException | SecurityException e) {
+        } catch (NullPointerException e) {
+            throw new IOException(e);
+        } catch (IllegalArgumentException e) {
+            throw new IOException(e);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IOException(e);
+        } catch (SecurityException e) {
             throw new IOException(e);
         }
 
         try {
             return connection.getResponseCode();
-        } catch (NullPointerException | StringIndexOutOfBoundsException | IllegalArgumentException e) {
+        } catch (NullPointerException e) {
+            throw new IOException(e);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new IOException(e);
+        } catch (IllegalArgumentException e) {
             throw new IOException(e);
         }
     }
