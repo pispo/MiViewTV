@@ -26,6 +26,6 @@ public class BootProperties {
     }
 
     public static String getPropertyValue(String name) {
-        return properties.get(name)
+        return properties.get(name);
     }
 }
