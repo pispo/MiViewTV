@@ -9,14 +9,6 @@ package com.movistar.tvservices.bootcast.infocast;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.movistar.miviewtv.MetadataInfoFile;
-import com.movistar.miviewtv.net.MulticastDataSource;
-
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.UnknownHostException;
-import java.util.HashMap;
-
 public class InfocastHeader {
 
     private static final int HEADER_LENGTH = 44;
