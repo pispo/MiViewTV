@@ -29,7 +29,7 @@ public class ProfilesManager {
         platformProfile = PlatformProfile.fromJSONStream(HTTPHelper.GET(serviceAddress, servicePort, "/appserver/mvtv.do?action=getPlatformProfile"));
     }
 
-    public ClientProfile getClientProfile { return clientProfile; }
+    public ClientProfile getClientProfile() { return clientProfile; }
 
-    public PlatformProfile getPlatformProfile { return platformProfile; }
+    public PlatformProfile getPlatformProfile() { return platformProfile; }
 }
