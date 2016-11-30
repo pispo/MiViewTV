@@ -1,4 +1,4 @@
-package com.movistar.tvservices.opch.infocast;
+package com.movistar.tvservices.bootcast.infocast;
 
 import java.io.IOException;
 
