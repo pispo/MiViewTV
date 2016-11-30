@@ -23,7 +23,7 @@ import java.util.HashMap;
  */
 public class InfocastReader {
 
-    private static final LOG_TAG = InfocastReader.class.getSimpleName();
+    private static final String LOG_TAG = InfocastReader.class.getSimpleName();
 
     private static final int TYPE_INFO           =   0x00;
     private static final int TYPE_GENERIC        =   0x01;
@@ -47,7 +47,6 @@ public class InfocastReader {
     private MulticastSocketHandler multicastSocketHandler = null;
 
     protected InfocastReader(String address, int port) throws InfocastException {
-    {
         try {
 
             multicastSocketHandler = new MulticastSocketHandler(address, port);
@@ -169,4 +168,6 @@ public class InfocastReader {
             connected = false;
         }
     }
+
+    public boolean isConnected() { return connected; }
 }
