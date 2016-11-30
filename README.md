@@ -30,11 +30,11 @@ This plugin is intended to launch **native** navigation apps and therefore will 
 
 #### Create the cordova project
 
-    $ cordova create TvServices com.movistar miviewtv
+    $ cordova create MiViewTV com.movistar.tvservices movistarplus
     
 #### Install Android platform
 
-    $ cd TvServices
+    $ cd MiViewTV
     $ cordova platform add android
     
 #### Install the plugin
