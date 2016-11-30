@@ -1,4 +1,4 @@
-package com.movistar.tvservices.opch.infocast;
+package com.movistar.tvservices.bootcast.infocast;
 
 /**
  * Created by Sergio Moreno Mozota on 30/11/15.
@@ -23,7 +23,7 @@ import java.util.HashMap;
  */
 public class InfocastReader {
 
-    private static final LOG_TAG = InfocastLoader.class.getSimpleName();
+    private static final LOG_TAG = InfocastReader.class.getSimpleName();
 
     private static final int TYPE_INFO           =   0x00;
     private static final int TYPE_GENERIC        =   0x01;
