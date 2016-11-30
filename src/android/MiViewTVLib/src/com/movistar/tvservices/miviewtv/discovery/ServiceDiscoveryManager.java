@@ -21,10 +21,10 @@ public class ServiceDiscoveryManager {
         PlatformProfile platformProfile = ProfileManager.getInstance().getPlatformProfile();
 
         String address = platformProfile.getDvbEntryPoint().split(":")[0];
-        int port = Integer.parseInt(address[1]
+        int port = Integer.parseInt(platformProfile.getDvbEntryPoint().split(":")[1]);
 
         DvbStpReader dvbStpReader = DvbStpReader.open(address, port);
-        Hashmap<int, MetadataContent> metadataContents = dvbStpReader.download (DvbIpiConstants.SDS_SERVICE_PROVIDER_DISCOVERY)
+        Hashmap<int, MetadataContent> metadataContents = dvbStpReader.download (DvbIpiConstants.SDS_SERVICE_PROVIDER_DISCOVERY);
         dvbStpReader.close();
 
     }
