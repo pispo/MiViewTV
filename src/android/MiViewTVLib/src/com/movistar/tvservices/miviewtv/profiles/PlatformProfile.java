@@ -1,5 +1,10 @@
 package com.movistar.tvservices.miviewtv.profiles;
 
+import android.util.JsonReader;
+
+import java.io.Reader;
+import java.io.IOException;
+
 public class PlatformProfile {
     private static final String LOG_TAG = PlatformProfile.class.getSimpleName();
 
