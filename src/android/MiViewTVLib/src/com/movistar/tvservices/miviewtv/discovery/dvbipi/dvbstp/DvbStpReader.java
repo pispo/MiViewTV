@@ -56,8 +56,8 @@ public class DvbStpReader {
     public Map<Integer, MetadataContent> download(List<Integer> contentKeys) throws DvbStpException {
         DvbStpHeader header;
         DatagramPacket packet;
-        MetadataContent metadataContent = null;
-        Map<Integer, MetadataContent> metadataContents = new HashMap<Integer, MetadataContent>();
+        MetadataContent<Integer> metadataContent = null;
+        Map<Integer, MetadataContent<Integer>> metadataContents = new HashMap<Integer, MetadataContent<Integer>>();
 
         int contentKey = 0;
         int payloadLength = 0;
@@ -84,7 +84,7 @@ public class DvbStpReader {
 
                 if (null == (metadataContent = metadataContents.get(contentKey))) {
 
-                    metadataContent = new MetadataContent(contentKey,
+                    metadataContent = new MetadataContent<Integer>(contentKey,
                             header.getLastSectionNumber() + 1, nowTime, header.getSegmentVersion());
 
                     if (MetadataContent.COMPLETED == metadataContent.addFragment(packet.getData(), packet.getOffset(),
@@ -100,7 +100,7 @@ public class DvbStpReader {
 
                     if (metadataContent.getVersion() != header.getSegmentVersion()) {
 
-                        metadataContent = new MetadataContent(contentKey,
+                        metadataContent = new MetadataContent<Integer>(contentKey,
                                 header.getLastSectionNumber() + 1, nowTime, header.getSegmentVersion());
 
                         metadataContents.put(contentKey, metadataContent);
@@ -118,8 +118,8 @@ public class DvbStpReader {
             }
         }
       
-        for (Map.Entry<Integer, MetadataContent> entry : metadataContents.entrySet()) {
-            MetadataContent content = entry.getValue();
+        for (Map.Entry<Integer, MetadataContent<Integer>> entry : metadataContents.entrySet()) {
+            MetadataContent<Integer> content = entry.getValue();
             if (!content.isBufferCompleted())
                 metadataContents.remove(content.getId());
         }
