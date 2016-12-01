@@ -8,6 +8,12 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import java.lang.NullPointerException;
+import java.lang.IllegalArgumentException;
+import java.lang.SecurityException;
+import java.lang.IndexOutOfBoundsException;
+import java.lang.StringIndexOutOfBoundsException;
+
 public class HTTPHelper {
     private static final String LOG_TAG = HTTPHelper.class.getSimpleName();
 
