@@ -10,7 +10,7 @@ public class PackageDiscoveryData {
 
     private Map<String, Package> packages = new HashMap<String, Package>();
 
-    public class Package {
+    public static class Package {
         private String packageName;
         private String packageId;
 
