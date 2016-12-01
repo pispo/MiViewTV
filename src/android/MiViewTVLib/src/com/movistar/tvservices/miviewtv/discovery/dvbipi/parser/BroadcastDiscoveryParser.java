@@ -23,7 +23,7 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
 
     protected BroadcastDiscoveryParser() {}
 
-    public BroadcastDiscoveryParser getInstance() { return instance; }
+    public static BroadcastDiscoveryParser getInstance() { return instance; }
 
     @Override
     protected String getTAG() {
