@@ -6,6 +6,7 @@ public class DvbStpHeader {
 
     private static final int HEADER_LENGTH = 12;
 
+    private int id;
     private int version;
     private int reserved;
     private int encription;
@@ -39,9 +40,12 @@ public class DvbStpHeader {
         this.providerIdFlag = providerIdFlag;
         this.privateHeaderLength = privateHeaderLength;
         this.length = length;
+        this.id = (payloadId << 16) | segmentId;
     }
 
-    public int getVersion () { return version; }
+    public int getId() { return id; }
+    
+    public int getVersion() { return version; }
 
     public int getReserved() { return reserved; }
 
