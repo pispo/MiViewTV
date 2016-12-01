@@ -11,7 +11,6 @@ public class ProfilesManager {
 
     private static final String serviceAddress = DNSHelper.resolve("www.svc.imagenio.telefonica.net");
     private static final int servicePort = 2001;
-    private static final String defaultDnsAddress = "172.26.23.3";
 
     private static final ProfilesManager instance = new ProfilesManager();
 
