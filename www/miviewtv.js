@@ -4,19 +4,20 @@ var utils = require('cordova/utils'),
   exec = require('cordova/exec'),
   cordova = require('cordova');
 
-function MiViewTV (ipList) {
-  this.results = null;
+function MiViewTV () {
+  this.channels = null;
+  this.programGuide = null;
 }
 
-MiViewTV.prototype.channels = function (success, err) {
+MiViewTV.prototype.getChannels = function (success, err) {
   var successCallback, errorCallback, self;
   
   self = this;
   
-  successCallback = function (r) {
-    self.results = r;
+  successCallback = function (result) {
+    self.channels = result;
     if (success && typeof success === 'function') {
-      success(r);
+      success(result);
     }
   };
   
@@ -30,15 +31,15 @@ MiViewTV.prototype.channels = function (success, err) {
   exec(successCallback, errorCallback, "MiViewTVPlugin", "getChannels", []);
 };
 
-MiViewTV.prototype.programGuide = function (day, success, err) {
+MiViewTV.prototype.getProgramGuide = function (day, success, err) {
   var successCallback, errorCallback, self;
   
   self = this;
   
-  successCallback = function (r) {
-    self.results = r;
+  successCallback = function (result) {
+    self.programGuide = result;
     if (success && typeof success === 'function') {
-      success(r);
+      success(result);
     }
   };
   
