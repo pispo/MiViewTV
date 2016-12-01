@@ -5,9 +5,7 @@ import com.movistar.tvservices.bootcast.infocast.InfocastReader;
 import com.movistar.tvservices.bootcast.infocast.InfocastException;
 
 import android.util.Log;
-
-import java.io.IOException;
-import java.util.Map;
+import java.util.List;
 
 public class BootLoader {
     private static final String LOG_TAG = BootLoader.class.getSimpleName();
@@ -22,10 +20,9 @@ public class BootLoader {
 
             infocastReader = InfocastReader.open(DEFAULT_OPCH_ADDR, DEFAULT_POCH_PORT);
 
-            Map<String, MetadataContent<String>> metadataContents = infocastReader.download(BootProperties.getPropertiesName());
+            List<MetadataContent<String>> metadataContents = infocastReader.download(BootProperties.getPropertiesName());
 
-            for (Map.Entry<String, MetadataContent<String>> entry : metadataContents.entrySet()) {
-                MetadataContent<String> metadataContent = entry.getValue();
+            for (MetadataContent<String> metadataContent : metadataContents) {
                 BootProperties.setPropertyValue (metadataContent.getId(), metadataContent.getString());
             }
 
