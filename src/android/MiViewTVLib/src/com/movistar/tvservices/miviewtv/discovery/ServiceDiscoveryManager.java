@@ -1,6 +1,7 @@
 package com.movistar.tvservices.miviewtv.discovery;
 
-import com.movistar.tvservices.miviewtv.bootcast.profiles.*;
+import com.movistar.tvservices.miviewtv.profiles.*;
+import com.movistar.tvservices.miviewtv.discovery.dvbipi.DvbIpiConstants;
 import com.movistar.tvservices.miviewtv.discovery.dvbipi.dvbstp.DvbStpReader;
 
 /**
