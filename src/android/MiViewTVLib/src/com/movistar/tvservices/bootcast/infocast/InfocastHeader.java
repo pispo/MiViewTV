@@ -5,8 +5,6 @@ package com.movistar.tvservices.bootcast.infocast;
  *
  * Copyright Telef�nica de Espa�a SAU 2015
  */
-
-import android.os.SystemClock;
 import android.util.Log;
 
 public class InfocastHeader {
