@@ -1,9 +1,14 @@
 package com.movistar.tvservices.miviewtv.discovery.dvbipi.data;
 
+import java.util.Map;
+import java.util.HashMap;
+import com.movistar.tvservices.utils.metadata.MetadataContent;
+import com.movistar.tvservices.miviewtv.discovery.dvbipi.parser.BroadcastDiscoveryParser;
+
 public class BroadcastDiscoveryData {
     private static final String LOG_TAG = BroadcastDiscoveryData.class.getSimpleName();
 
-    private Map<String, Service> services = new HashMap<String, SingleService>();
+    private Map<String, Service> services = new HashMap<String, Service>();
 
     public class Service {
         private String address;
@@ -165,7 +170,7 @@ public class BroadcastDiscoveryData {
         return services.get(serviceName);
     }
 
-    public static BroadcastDiscoveryData fromMetadata(MetaDataContent metaDataContent) {
-        return BroadcastDiscoveryParser.getInstance().parse(metaDataContent.getByteArrayInputStream());
+    public static BroadcastDiscoveryData fromMetadata(MetadataContent metadataContent) {
+        return BroadcastDiscoveryParser.getInstance().parse(metadataContent.getByteArrayInputStream());
     }
 }
