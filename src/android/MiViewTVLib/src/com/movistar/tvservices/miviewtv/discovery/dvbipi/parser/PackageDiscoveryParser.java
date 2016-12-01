@@ -17,7 +17,7 @@ public class PackageDiscoveryParser extends ServiceDiscoveryParser {
 
     protected PackageDiscoveryParser() {}
 
-    public PackageDiscoveryParser getInstance() { return instance; }
+    public static PackageDiscoveryParser getInstance() { return instance; }
 
     @Override
     protected String getTAG() {
