@@ -21,6 +21,15 @@ public class ServiceProviderDiscoveryParser extends ServiceDiscoveryParser {
     public static ServiceProviderDiscoveryParser getInstance() { return instance; }
 
     @Override
+    protected ServiceProviderDiscoveryData parse(InputStream in) {
+        try {
+            return (ServiceProviderDiscoveryData) super.parse(in);
+        } catch (Exception e) {
+            return null;
+        }   
+    }
+    
+    @Override
     protected String getTAG() {
         return TAG;
     }
