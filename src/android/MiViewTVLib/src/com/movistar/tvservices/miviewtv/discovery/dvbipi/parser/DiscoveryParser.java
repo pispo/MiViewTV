@@ -14,7 +14,7 @@ import java.io.InputStream;
 abstract public class DiscoveryParser {
     protected static final String ns = null;
 
-    protected Object parse(InputStream in) throws XmlPullParserException, IOException {
+    protected static Object parse(InputStream in) throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
@@ -28,7 +28,7 @@ abstract public class DiscoveryParser {
         }
     }
 
-    protected void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
+    protected static void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
         if (parser.getEventType() != XmlPullParser.START_TAG) {
             throw new IllegalStateException();
         }
@@ -48,5 +48,5 @@ abstract public class DiscoveryParser {
         }
     }
 
-    abstract protected Object readFeed(XmlPullParser parser) throws XmlPullParserException, IOException;
+    abstract protected static Object readFeed(XmlPullParser parser) throws XmlPullParserException, IOException;
 }
