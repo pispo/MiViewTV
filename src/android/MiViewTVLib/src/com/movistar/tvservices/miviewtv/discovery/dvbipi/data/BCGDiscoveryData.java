@@ -85,7 +85,6 @@ public class BCGDiscoveryData {
         }
     }
 
-    @Override
     public boolean hasData() {
         return (guides.size() > 0);
     }
