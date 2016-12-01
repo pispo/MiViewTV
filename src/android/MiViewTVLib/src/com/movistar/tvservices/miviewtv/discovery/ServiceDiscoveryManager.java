@@ -6,7 +6,7 @@ import com.movistar.tvservices.miviewtv.discovery.dvbipi.dvbstp.DvbStpReader;
 
 import com.movistar.tvservices.utils.metadata.MetadataContent;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * This class implements the Service Discovery Provider that download all the info related to the Service Discovery & Selection
