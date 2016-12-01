@@ -14,7 +14,10 @@ public class BCGDiscoveryData {
 
     public static class BCG {
         private String id;
+        private String name;
         private int version;
+        
+        
         private Map<String, TransportMode> transportModes =  new HashMap<String, TransportMode>();
 
         public String getId() {
@@ -23,6 +26,14 @@ public class BCGDiscoveryData {
 
         public void setId(String id) {
             this.id = id;
+        }
+        
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
 
         public int getVersion() {
@@ -37,8 +48,8 @@ public class BCGDiscoveryData {
             return transportModes;
         }
 
-        public void addTransportMode(String source, TransportMode transportMode) {
-            transportModes.put(source, transportMode);
+        public void addTransportMode(TransportMode transportMode) {
+            transportModes.put(transportMode.getSource(), transportMode);
         }
 
         public TransportMode getTransportMode(String source) {
