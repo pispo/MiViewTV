@@ -78,7 +78,7 @@ public class InfocastReader {
         int completedContents = 0;
 
         if (!connected)
-            throw new InfocastException("InfocastReader is closed", e);
+            throw new InfocastException("InfocastReader is closed");
 
         while (contentKeys.size() > 0 && (nowTime-initialTime < TIMEOUT)) {
 
