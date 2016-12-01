@@ -6,7 +6,13 @@ import android.util.Log;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.UnknownHostException;
+
+import java.util.List;
+import java.util.Map;
 import java.util.HashMap;
+
+import com.movistar.tvservices.utils.metadata.MetadataContent;
+import com.movistar.tvservices.utils.net.MulticastSocketHandler;
 
 /**
  * This class implements an Infocast loader that download all the info related to the booting
@@ -14,7 +20,7 @@ import java.util.HashMap;
  */
 public class DvbStpReader {
 
-    private static final String LOG_TAG = DvbStpLoader.class.getSimpleName();
+    private static final String LOG_TAG = DvbStpReader.class.getSimpleName();
 
     public static final int TYPE_DVBSTP    = 0x00;
     public static final int TYPE_DVBBINSTP = 0x01;
