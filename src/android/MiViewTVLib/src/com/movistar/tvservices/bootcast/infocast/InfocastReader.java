@@ -139,12 +139,6 @@ public class InfocastReader {
                     totalContents++;
 
                 } else if (!metadataContent.isBufferCompleted()) {
-
-                    if (metadataContent.getVersion() != header.getSegmentVersion()) {
-                        metadataContent = new MetadataContent(header.getId(), header.getTotalPackets(), contentType, nowTime);
-                        metadataContents.put(contentKey, metadataContent);
-                    }
-
                     if (MetadataContent.COMPLETED == metadataContent.addFragment(packet.getData(), packet.getOffset(),
                             header.getLength(), payloadLength, header.getPacketNumber() - 1)) {
                         completedContents++;
