@@ -33,9 +33,6 @@ public class MetadataContent<T> {
     private byte[][] fragmentsBuffer;
     private int CRC;
 
-    public MetadataContent() {
-    }
-    
     public MetadataContent(T id, int fragments, int type, long time) {
         this(id, fragments, type, time, 0);
     }
