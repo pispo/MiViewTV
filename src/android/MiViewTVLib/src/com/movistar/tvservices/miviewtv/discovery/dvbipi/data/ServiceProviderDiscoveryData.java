@@ -49,7 +49,6 @@ public class ServiceProviderDiscoveryData {
         }
     }
 
-    @Override
     public boolean hasData() {
         return (serviceProviders.size() > 0);
     }
