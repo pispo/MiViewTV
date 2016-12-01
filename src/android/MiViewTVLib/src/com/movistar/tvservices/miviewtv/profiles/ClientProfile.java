@@ -1,6 +1,9 @@
 package com.movistar.tvservices.miviewtv.profiles;
 
+import android.util.JsonReader;
+
 import java.io.Reader;
+import java.io.IOException;
 
 public class ClientProfile {
     private static final String LOG_TAG = ClientProfile.class.getSimpleName();
@@ -70,8 +73,8 @@ public class ClientProfile {
 
     public static ClientProfile fromJSONStream(Reader reader)
     {
-        ClientProfile clientProfile = new ClientProfile();
-        JsonReader jsonReader;
+        JsonReader jsonReader = null;
+        ClientProfile clientProfile = new ClientProfile();        
 
         try {
 
@@ -118,7 +121,6 @@ public class ClientProfile {
 
                     jsonReader.endObject();
 
-
                 } else {
                     jsonReader.skipValue();
                 }
@@ -131,7 +133,9 @@ public class ClientProfile {
 
         } finally {
             try {
-                jsonReader.close();
+                if (jsonReader != null)
+                    jsonReader.close();
+                
             } catch (IOException e) {
                 e.printStackTrace();
             }
