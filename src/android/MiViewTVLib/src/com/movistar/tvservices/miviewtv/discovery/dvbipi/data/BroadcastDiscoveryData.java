@@ -10,7 +10,7 @@ public class BroadcastDiscoveryData {
 
     private Map<String, Service> services = new HashMap<String, Service>();
 
-    public class Service {
+    public static class Service {
         private String address;
         private int port;
         private String serviceName;
