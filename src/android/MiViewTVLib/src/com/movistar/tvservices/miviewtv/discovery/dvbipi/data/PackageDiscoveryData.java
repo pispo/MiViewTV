@@ -1,7 +1,9 @@
 package com.movistar.tvservices.miviewtv.discovery.dvbipi.data;
 
-import java.io.IOException;
+import java.util.Map;
 import java.util.HashMap;
+import com.movistar.tvservices.utils.metadata.MetadataContent;
+import com.movistar.tvservices.miviewtv.discovery.dvbipi.parser.PackageDiscoveryParser;
 
 public class PackageDiscoveryData {
     private static final String LOG_TAG = PackageDiscoveryData.class.getSimpleName();
@@ -47,7 +49,7 @@ public class PackageDiscoveryData {
         packages.put(packagge.getPackageName(), packagge);
     }
 
-    public static PackageDiscoveryData fromMetadata(MetaDataContent metaDataContent) {
-        return PackageDiscoveryParser.getInstance().parse(metaDataContent.getByteArrayInputStream());
+    public static PackageDiscoveryData fromMetadata(MetadataContent metadataContent) {
+        return PackageDiscoveryParser.getInstance().parse(metadataContent.getByteArrayInputStream());
     }
 }
