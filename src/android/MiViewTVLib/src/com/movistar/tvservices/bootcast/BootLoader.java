@@ -22,10 +22,10 @@ public class BootLoader {
 
             infocastReader = InfocastReader.open(DEFAULT_OPCH_ADDR, DEFAULT_POCH_PORT);
 
-            Map<String, MetadataContent> metadataContents = infocastReader.download(BootProperties.getPropertiesName());
+            Map<String, MetadataContent<String>> metadataContents = infocastReader.download(BootProperties.getPropertiesName());
 
-            for (Map.Entry<String, MetadataContent> entry : metadataContents.entrySet()) {
-                MetadataContent metadataContent = entry.getValue();
+            for (Map.Entry<String, MetadataContent<String>> entry : metadataContents.entrySet()) {
+                MetadataContent<String> metadataContent = entry.getValue();
                 BootProperties.setPropertyValue (metadataContent.getId(), metadataContent.getString());
             }
 
