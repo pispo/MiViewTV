@@ -78,7 +78,7 @@ public class DvbStpReader {
             header = DvbStpHeader.decode(packet.getData(), packet.getOffset(), packet.getLength());
             contentKey = (header.getPayloadId() << 16) | header.getSegmentId();
 
-            if (null != contentKeys.contains(header.getId())) {
+            if (contentKeys.contains(header.getId())) {
 
                 payloadLength = packet.getLength() - header.getLength() - (header.getCRC() * 4);
 
