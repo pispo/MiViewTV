@@ -14,7 +14,7 @@ import java.io.InputStream;
 abstract public class DiscoveryParser {
     protected static final String ns = null;
 
-    public Object parse(InputStream in) throws XmlPullParserException, IOException {
+    protected Object parse(InputStream in) throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
