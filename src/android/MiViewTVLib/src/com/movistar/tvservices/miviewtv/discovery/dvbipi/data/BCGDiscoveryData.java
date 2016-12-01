@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import com.movistar.tvservices.utils.metadata.MetadataContent;
-import com.movistar.tvservices.miviewtv.discovery.dvbipi.parser.BCGDiscoveryParser;
+import com.movistar.tvservices.miviewtv.discovery.dvbipi.data.parser.BCGDiscoveryParser;
 
 
 public class BCGDiscoveryData {
