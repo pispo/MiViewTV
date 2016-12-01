@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
  * Copyright Telefónica de España SAU 2015
  */
 
-public class MetadataContent<T> {
+public class MetadataContent<K> {
 
     /**
      * Constants
@@ -22,7 +22,7 @@ public class MetadataContent<T> {
 
     public static final int COMPLETED = 0;
 
-    private T id;
+    private K id;
     private int type;
     private int version;
     private long timestamp;
@@ -33,11 +33,11 @@ public class MetadataContent<T> {
     private byte[][] fragmentsBuffer;
     private int CRC;
 
-    public MetadataContent(T id, int fragments, int type, long time) {
+    public MetadataContent(K id, int fragments, int type, long time) {
         this(id, fragments, type, time, 0);
     }
 
-    public MetadataContent(T id, int fragments, int type, long time, int version) {
+    public MetadataContent(K id, int fragments, int type, long time, int version) {
         this.id = id;
         this.totalFragments = fragments;
         this.type = type;
@@ -50,7 +50,7 @@ public class MetadataContent<T> {
         return timestamp;
     }
 
-    public T getId () {
+    public K getId () {
         return id;
     }
 
