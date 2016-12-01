@@ -1,4 +1,4 @@
-package com.movistar.tvservices.miviewtv.discovery.dvbipi.data.parser;
+package com.movistar.tvservices.miviewtv.discovery.dvbipi.parser;
 
 import android.util.Xml;
 
