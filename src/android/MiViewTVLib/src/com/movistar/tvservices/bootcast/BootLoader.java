@@ -22,7 +22,7 @@ public class BootLoader {
 
             infocastReader = InfocastReader.open(DEFAULT_OPCH_ADDR, DEFAULT_POCH_PORT);
 
-            Map<String, MetadataContent> metadataContents = infocastLoader.download(BootProperties.getPropertiesName());
+            Map<String, MetadataContent> metadataContents = infocastReader.download(BootProperties.getPropertiesName());
 
             for (MetadataContent metadataContent : metadataContents)
                 BootProperties.setPropertyValue (metadataContent.getName(), metadataContent.getString());
@@ -31,8 +31,8 @@ public class BootLoader {
             throw new BootException("Failed to download bootcast information", e);
 
         } finally {
-            if (infocastLoader != null)
-                infocastLoader.close();
+            if (infocastReader != null)
+                infocastReader.close();
         }
     }
 }
