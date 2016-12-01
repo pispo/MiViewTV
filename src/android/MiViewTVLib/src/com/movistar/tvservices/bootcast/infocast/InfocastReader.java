@@ -14,7 +14,7 @@ import com.movistar.tvservices.utils.net.MulticastSocketHandler;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
-import java.net.UnknownHostException;
+import java.util.HashMap;
 import java.util.HashMap;
 
 /**
@@ -66,7 +66,7 @@ public class InfocastReader {
         InfocastHeader header;
         DatagramPacket packet = null;
         MetadataContent content = null;
-        Map<String, MetaDataInfoFile> metadataContents = new HashMap<String, MetaDataInfoFile>();
+        Map<String, MetadataContent> metadataContents = new HashMap<String, MetadataContent>();
 
         long initialTime = SystemClock.elapsedRealtime(); // TODO: bail out on exceeded time limit
         long nowTime = initialTime;
@@ -76,7 +76,7 @@ public class InfocastReader {
         int completedContents = 0;
 
         if (!connected)
-            throw new InfocastException("Reader is closed", e);
+            throw new InfocastException("InfocastReader is closed", e);
 
         while (contentKeys.size() > 0 && (nowTime-initialTime < TIMEOUT)) {
 
