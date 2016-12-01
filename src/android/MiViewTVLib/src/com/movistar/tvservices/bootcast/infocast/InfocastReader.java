@@ -64,7 +64,7 @@ public class InfocastReader {
         return new InfocastReader(address, port);
     }
 
-    public Map<String, MetadataContent> download(List<String> contentKeys) throws InfocastException {
+    public Map<String, MetadataContent<String>> download(List<String> contentKeys) throws InfocastException {
         InfocastHeader header;
         DatagramPacket packet = null;
         MetadataContent<String> metadataContent = null;
