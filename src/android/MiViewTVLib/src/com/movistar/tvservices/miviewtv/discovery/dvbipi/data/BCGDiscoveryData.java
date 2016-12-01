@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import com.movistar.tvservices.utils.metadata.MetadataContent;
-import com.movistar.tvservices.miviewtv.discovery.dvbipi.data.parser.BCGDiscoveryParser;
+import com.movistar.tvservices.miviewtv.discovery.dvbipi.parser.BCGDiscoveryParser;
 
 
 public class BCGDiscoveryData {
@@ -93,7 +93,7 @@ public class BCGDiscoveryData {
         guides.put(broadContentGuide.getId(), broadContentGuide);
     }
 
-    public Service getBroadContentGuide(String id) {
+    public BCG getBroadContentGuide(String id) {
         return guides.get(id);
     }
 
