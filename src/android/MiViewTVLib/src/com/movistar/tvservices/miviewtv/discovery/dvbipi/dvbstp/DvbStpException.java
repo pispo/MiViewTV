@@ -1,6 +1,6 @@
 package com.movistar.tvservices.miviewtv.discovery.dvbipi.dvbstp;
 
-import java.io.IOException;
+import java.lang.RuntimeException;
 
 /**
  * Exception thrown for all dvbstp errors.
