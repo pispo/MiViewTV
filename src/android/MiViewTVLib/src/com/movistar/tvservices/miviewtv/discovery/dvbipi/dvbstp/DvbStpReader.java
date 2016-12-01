@@ -53,11 +53,11 @@ public class DvbStpReader {
         return new dvbStpReader(address, port);
     }
 
-    public Hashmap<int, MetadataContent> download(List<int> contentKeys) throws DvbStpException {
+    public Map<Int, MetadataContent> download(List<Integer> contentKeys) throws DvbStpException {
         DvbStpHeader header;
         DatagramPacket packet;
         MetadataContent metadataContent = null;
-        Map<int, MetadataContent> metadataContents = new HashMap<int, MetadataContent>();
+        Map<Integer, MetadataContent> metadataContents = new HashMap<Integer, MetadataContent>();
 
         int contentKey = 0;
         int payloadLength = 0;
