@@ -67,7 +67,7 @@ public class ServiceProviderDiscoveryParser extends ServiceDiscoveryParser {
         return serviceProviderDiscoveryData;
     }
 
-    private void readOffering(XmlPullParser parser, ServiceProviderDiscoveryData.ServiceProvider serviceProvider) throws XmlPullParserException, IOException {
+    private static void readOffering(XmlPullParser parser, ServiceProviderDiscoveryData.ServiceProvider serviceProvider) throws XmlPullParserException, IOException {
         int depth = parser.getDepth();
 
         while (parser.next() != XmlPullParser.END_TAG || parser.getDepth() > depth) {
@@ -84,7 +84,7 @@ public class ServiceProviderDiscoveryParser extends ServiceDiscoveryParser {
         }
     }
 
-    private void readPush(XmlPullParser parser, ServiceProviderDiscoveryData.ServiceProvider serviceProvider) throws XmlPullParserException, IOException {
+    private static void readPush(XmlPullParser parser, ServiceProviderDiscoveryData.ServiceProvider serviceProvider) throws XmlPullParserException, IOException {
         int depth = parser.getDepth();
 
         while (parser.next() != XmlPullParser.END_TAG || parser.getDepth() > depth) {
