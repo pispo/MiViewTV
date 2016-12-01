@@ -91,7 +91,7 @@ public class InfocastReader {
 
             header = InfocastHeader.decode(packet.getData(), packet.getOffset(), packet.getLength());
 
-            if (null != contentKeys.contains(header.getId())) {
+            if (contentKeys.contains(header.getId())) {
 
                 payloadLength = packet.getLength() - header.getLength();
 
