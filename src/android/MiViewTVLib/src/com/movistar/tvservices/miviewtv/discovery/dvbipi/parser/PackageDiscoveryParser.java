@@ -15,14 +15,8 @@ import com.movistar.tvservices.miviewtv.discovery.dvbipi.data.PackageDiscoveryDa
 public class PackageDiscoveryParser extends ServiceDiscoveryParser {
     private String TAG = "PackageDiscovery";
 
-    private static final PackageDiscoveryParser instance = new PackageDiscoveryParser();
-
-    protected PackageDiscoveryParser() {}
-
-    public static PackageDiscoveryParser getInstance() { return instance; }
-
     @Override
-    protected PackageDiscoveryData parse(InputStream in) {
+    protected static PackageDiscoveryData parse(InputStream in) {
         try {
             return (PackageDiscoveryData) super.parse(in);
         } catch (Exception e) {
@@ -31,7 +25,7 @@ public class PackageDiscoveryParser extends ServiceDiscoveryParser {
     }
     
     @Override
-    protected String getTAG() {
+    protected static String getTAG() {
         return TAG;
     }
 
@@ -51,7 +45,7 @@ public class PackageDiscoveryParser extends ServiceDiscoveryParser {
      */
 
     @Override
-    protected Object readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
+    protected static Object readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
         PackageDiscoveryData packageDiscoveryData = new PackageDiscoveryData();
         int depth = parser.getDepth();
 
@@ -71,7 +65,7 @@ public class PackageDiscoveryParser extends ServiceDiscoveryParser {
         return packageDiscoveryData;
     }
 
-    private PackageDiscoveryData.Package readPackage(XmlPullParser parser) throws XmlPullParserException, IOException {
+    private static PackageDiscoveryData.Package readPackage(XmlPullParser parser) throws XmlPullParserException, IOException {
         PackageDiscoveryData.Package packageData = new PackageDiscoveryData.Package();
         int depth = parser.getDepth();
 
@@ -96,7 +90,7 @@ public class PackageDiscoveryParser extends ServiceDiscoveryParser {
         return packageData;
     }
 
-    private void readService(XmlPullParser parser, PackageDiscoveryData.Package packageData) throws XmlPullParserException, IOException {
+    private static void readService(XmlPullParser parser, PackageDiscoveryData.Package packageData) throws XmlPullParserException, IOException {
         String textualId = null;
         int logicalChannelNumber = -1;
         int depth = parser.getDepth();
