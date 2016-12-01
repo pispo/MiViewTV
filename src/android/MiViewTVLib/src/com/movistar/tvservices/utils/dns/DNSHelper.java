@@ -10,13 +10,15 @@ import org.xbill.DNS.TextParseException;
 public class DNSHelper {
     private static final String LOG_TAG = DNSHelper.class.getSimpleName();
 
+    private static final String DEFAULT_DNS_ADDR = "172.26.23.3";
+    
     public static String resolve(String domain) {
         String address = null;
 
         try {
 
             Lookup lookup = new Lookup(domain);
-            Resolver resolver = new SimpleResolver(this.serviceDnsAddress);
+            Resolver resolver = new SimpleResolver(DEFAULT_DNS_ADDR);
             lookup.setResolver(resolver);
 
             Record recs[] = lookup.run();
