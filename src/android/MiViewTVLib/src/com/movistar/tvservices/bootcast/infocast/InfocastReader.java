@@ -14,7 +14,9 @@ import com.movistar.tvservices.utils.net.MulticastSocketHandler;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
-import java.util.HashMap;
+
+import java.util.List;
+import java.util.Map;
 import java.util.HashMap;
 
 /**
