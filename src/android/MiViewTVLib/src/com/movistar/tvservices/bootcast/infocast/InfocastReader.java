@@ -67,7 +67,7 @@ public class InfocastReader {
     public Map<String, MetadataContent> download(List<String> contentKeys) throws InfocastException {
         InfocastHeader header;
         DatagramPacket packet = null;
-        MetadataContent metadataConten = null;
+        MetadataContent metadataContent = null;
         Map<String, MetadataContent> metadataContents = new HashMap<String, MetadataContent>();
 
         long initialTime = SystemClock.elapsedRealtime(); // TODO: bail out on exceeded time limit
