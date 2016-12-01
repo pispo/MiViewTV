@@ -12,7 +12,7 @@ public class BCGDiscoveryData {
 
     private Map<String, BCG> guides = new HashMap<String, BCG>();
 
-    public final class BCG {
+    public static class BCG {
         private String id;
         private int version;
         private Map<String, TransportMode> transportModes =  new HashMap<String, TransportMode>();
@@ -46,7 +46,7 @@ public class BCGDiscoveryData {
         }
     }
 
-    public final class TransportMode {
+    public static class TransportMode {
         private String source;
         private String address;
         private int port;
