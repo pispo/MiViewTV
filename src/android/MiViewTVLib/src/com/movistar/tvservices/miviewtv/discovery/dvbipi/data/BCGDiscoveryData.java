@@ -109,6 +109,6 @@ public class BCGDiscoveryData {
     }
 
     public static BCGDiscoveryData fromMetadata(MetadataContent<Integer> metadataContent) {
-        return (BCGDiscoveryData) BCGDiscoveryParser.getInstance().parse(metadataContent.getByteArrayInputStream());
+        return BCGDiscoveryParser.getInstance().parse(metadataContent.getByteArrayInputStream());
     }
 }
