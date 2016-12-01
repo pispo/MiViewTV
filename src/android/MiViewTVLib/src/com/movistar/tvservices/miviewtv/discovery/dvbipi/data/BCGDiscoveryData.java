@@ -87,7 +87,7 @@ public class BCGDiscoveryData {
 
     @Override
     public boolean hasData() {
-        return (services.size() > 0);
+        return (guides.size() > 0);
     }
 
     public void addBroadContentGuide(BCG broadContentGuide) {
