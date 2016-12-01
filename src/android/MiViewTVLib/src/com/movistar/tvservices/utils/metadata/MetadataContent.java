@@ -23,6 +23,7 @@ public class MetadataContent {
     public static final int COMPLETED = 0;
 
     private String id;
+    private int type;
     private int version;
     private long timestamp;
     private int totalFragments;
@@ -39,9 +40,10 @@ public class MetadataContent {
         this(id, fragments, type, time, 0);
     }
 
-    public MetadataContent(String id, int fragments, long time, int version) {
+    public MetadataContent(String id, int fragments, int type, long time, int version) {
         this.id = id;
         this.totalFragments = fragments;
+        this.type = type;
         this.fragmentsBuffer = new byte[fragments][];
         this.timestamp = time;
         this.version = version;
