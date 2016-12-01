@@ -22,7 +22,7 @@ public class MetadataContent {
 
     public static final int COMPLETED = 0;
 
-    private int id;
+    private String id;
     private int version;
     private long timestamp;
     private int totalFragments;
@@ -35,11 +35,11 @@ public class MetadataContent {
     public MetadataContent() {
     }
     
-    public MetadataContent(int id, int fragments, int type, long time) {
+    public MetadataContent(String id, int fragments, int type, long time) {
         this(id, fragments, type, time, 0);
     }
 
-    public MetadataContent(int id, int fragments, long time, int version) {
+    public MetadataContent(String id, int fragments, long time, int version) {
         this.id = id;
         this.totalFragments = fragments;
         this.fragmentsBuffer = new byte[fragments][];
@@ -51,7 +51,7 @@ public class MetadataContent {
         return timestamp;
     }
 
-    public int getId () {
+    public String getId () {
         return id;
     }
 
