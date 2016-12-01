@@ -1,7 +1,5 @@
 package com.movistar.tvservices.miviewtv.discovery.dvbipi.parser;
 
-import com.movistar.tvservices.utils.xml.XmlParser;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
