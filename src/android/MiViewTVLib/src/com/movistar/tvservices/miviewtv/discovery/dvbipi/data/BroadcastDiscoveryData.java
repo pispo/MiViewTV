@@ -170,6 +170,6 @@ public class BroadcastDiscoveryData {
     }
 
     public static BroadcastDiscoveryData fromMetadata(MetadataContent<Integer> metadataContent) {
-        return (BroadcastDiscoveryData) BroadcastDiscoveryParser.getInstance().parse(metadataContent.getByteArrayInputStream());
+        return BroadcastDiscoveryParser.getInstance().parse(metadataContent.getByteArrayInputStream());
     }
 }
