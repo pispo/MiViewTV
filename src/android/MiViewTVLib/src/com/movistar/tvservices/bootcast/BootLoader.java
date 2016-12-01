@@ -25,7 +25,7 @@ public class BootLoader {
             Map<String, MetadataContent> metadataContents = infocastReader.download(BootProperties.getPropertiesName());
 
             for (Map.Entry<String, MetadataContent> entry : metadataContents.entrySet()) {
-                MetadataContent content = entry.getValue();
+                MetadataContent metadataContent = entry.getValue();
                 BootProperties.setPropertyValue (metadataContent.getId(), metadataContent.getString());
             }
 
