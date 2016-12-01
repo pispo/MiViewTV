@@ -22,6 +22,15 @@ public class PackageDiscoveryParser extends ServiceDiscoveryParser {
     public static PackageDiscoveryParser getInstance() { return instance; }
 
     @Override
+    protected PackageDiscoveryData parse(InputStream in) {
+        try {
+            return (PackageDiscoveryData) super.parse(in);
+        } catch (Exception e) {
+            return null;
+        }   
+    }
+    
+    @Override
     protected String getTAG() {
         return TAG;
     }
