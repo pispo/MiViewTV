@@ -1,18 +1,19 @@
 package com.movistar.tvservices.utils.http;
 
-import java.io.Reader;
-
-import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 
 import java.lang.NullPointerException;
 import java.lang.IllegalArgumentException;
 import java.lang.SecurityException;
 import java.lang.IndexOutOfBoundsException;
 import java.lang.StringIndexOutOfBoundsException;
+
+import java.io.Reader;
+import java.io.IOException;
 
 public class HTTPHelper {
     private static final String LOG_TAG = HTTPHelper.class.getSimpleName();
