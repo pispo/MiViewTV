@@ -1,6 +1,7 @@
 package com.movistar.tvservices.miviewtv.profiles;
 
 import android.util.JsonReader;
+import java.io.IOException;
 
 import com.movistar.tvservices.utils.http.HTTPHelper;
 import com.movistar.tvservices.utils.dns.DNSHelper;
