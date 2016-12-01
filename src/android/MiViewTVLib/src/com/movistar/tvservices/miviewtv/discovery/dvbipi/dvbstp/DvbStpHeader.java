@@ -71,7 +71,7 @@ public class DvbStpHeader {
 
     public static DvbStpHeader decode(byte[] buffer, int bufferOffset, int bufferLength) throws BufferLengthTooSmall {
         if (bufferLength < HEADER_LENGTH) {
-            throw new DvbStpHeaderException("Bad header, length too short");
+            throw new DvbStpException("Bad header, length too short");
         }
 
         int version = (buffer[bufferOffset] >> 6) & 0x03;
