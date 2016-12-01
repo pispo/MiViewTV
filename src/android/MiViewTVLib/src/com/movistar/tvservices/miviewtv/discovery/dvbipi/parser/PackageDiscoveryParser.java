@@ -5,6 +5,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 
+import com.movistar.tvservices.miviewtv.discovery.dvbipi.data.PackageDiscoveryData;
+
 /**
  * Created by Sergio Moreno Mozota on 30/11/15.
  *
