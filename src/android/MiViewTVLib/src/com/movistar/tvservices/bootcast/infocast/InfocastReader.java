@@ -112,14 +112,14 @@ public class InfocastReader {
                     case TYPE_SW_INFO:
                     case TYPE_TIME:
                     case TYPE_UTCTIME:
-                        contentType = MetaDataInfoFile.TYPE_ASCII;
+                        contentType = MetadataContent.TYPE_ASCII;
                         break;
                     case TYPE_FILE:
                     case TYPE_SW:
-                        contentType = MetaDataInfoFile.TYPE_BINARY;
+                        contentType = MetadataContent.TYPE_BINARY;
                         break;
                     default:
-                        contentType = MetaDataInfoFile.TYPE_UNKNOWN;
+                        contentType = MetadataContent.TYPE_UNKNOWN;
                         break;
                 }
 
