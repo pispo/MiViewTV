@@ -1,6 +1,7 @@
 package com.movistar.tvservices.miviewtv.discovery;
 
-import  com.movistar.tvservices.miviewtv.bootcast.profiles.*;
+import com.movistar.tvservices.miviewtv.bootcast.profiles.*;
+import com.movistar.tvservices.miviewtv.discovery.dvbipi.dvbstp.DvbStpReader;
 
 /**
  * This class implements the Service Provider that download all the info related to the Service Discovery & Selection
