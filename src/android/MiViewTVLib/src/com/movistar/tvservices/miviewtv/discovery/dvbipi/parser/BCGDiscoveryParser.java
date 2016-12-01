@@ -27,6 +27,15 @@ public class BCGDiscoveryParser extends ServiceDiscoveryParser {
     public static BCGDiscoveryParser getInstance() { return instance; }
 
     @Override
+    protected BCGDiscoveryData parse(InputStream in) {
+        try {
+            return (BCGDiscoveryData) super.parse(in);
+        } catch (Exception e) {
+            return null;
+        }   
+    }
+    
+    @Override
     protected String getTAG() {
         return TAG;
     }
