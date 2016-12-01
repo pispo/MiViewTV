@@ -53,7 +53,7 @@ public class PackageDiscoveryData {
         packages.put(packagge.getPackageName(), packagge);
     }
 
-    public static PackageDiscoveryData fromMetadata(MetadataContent metadataContent) {
+    public static PackageDiscoveryData fromMetadata(MetadataContent<Integer> metadataContent) {
         return (PackageDiscoveryData) PackageDiscoveryParser.getInstance().parse(metadataContent.getByteArrayInputStream());
     }
 }
