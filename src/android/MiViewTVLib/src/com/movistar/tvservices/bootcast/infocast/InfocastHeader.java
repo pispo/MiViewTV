@@ -88,6 +88,6 @@ public class InfocastHeader {
         // add dynamic head size to header length
         int length = HEADER_LENGTH + ((dynamicHeadInfo >> (13 - 4)) & 0x0030);
 
-        return new InfocastHeader(id, type, precoding, packetNumber, totalPackets, id, dynamicHeadInfo, length);
+        return new InfocastHeader(id, type, precoding, packetNumber, totalPackets, dynamicHeadInfo, length);
     }
 }
