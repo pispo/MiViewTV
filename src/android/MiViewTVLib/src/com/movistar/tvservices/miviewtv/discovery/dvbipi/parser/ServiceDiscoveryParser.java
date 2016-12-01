@@ -16,7 +16,7 @@ public abstract class ServiceDiscoveryParser extends DiscoveryParser {
     private static final String TAG = "ServiceDiscovery";
 
     @Override
-    protected Object readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
+    protected static Object readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
         Object object = null;
         String TAG = getTAG();
 
@@ -39,7 +39,7 @@ public abstract class ServiceDiscoveryParser extends DiscoveryParser {
         return object;
     }
 
-    abstract protected String getTAG();
+    abstract protected static String getTAG();
 
-    abstract protected Object readEntry(XmlPullParser parser) throws XmlPullParserException, IOException;
+    abstract protected static Object readEntry(XmlPullParser parser) throws XmlPullParserException, IOException;
 }
