@@ -53,7 +53,7 @@ public class DvbStpReader {
         return new dvbStpReader(address, port);
     }
 
-    public Map<Int, MetadataContent> download(List<Integer> contentKeys) throws DvbStpException {
+    public Map<Integer, MetadataContent> download(List<Integer> contentKeys) throws DvbStpException {
         DvbStpHeader header;
         DatagramPacket packet;
         MetadataContent metadataContent = null;
