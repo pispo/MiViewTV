@@ -3,7 +3,7 @@ package com.movistar.tvservices.miviewtv.discovery.dvbipi.data;
 import java.util.Map;
 import java.util.HashMap;
 import com.movistar.tvservices.utils.metadata.MetadataContent;
-import com.movistar.tvservices.miviewtv.discovery.dvbipi.data.parser.BroadcastDiscoveryParser;
+import com.movistar.tvservices.miviewtv.discovery.dvbipi.parser.BroadcastDiscoveryParser;
 
 public class BroadcastDiscoveryData {
     private static final String LOG_TAG = BroadcastDiscoveryData.class.getSimpleName();
