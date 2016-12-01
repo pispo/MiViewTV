@@ -2,8 +2,8 @@ package com.movistar.tvservices.miviewtv.profiles;
 
 import android.util.JsonReader;
 
-import com.movistar.tvservices.http.HTTPHelper;
-import com.movistar.tvservices.dns.DNSHelper;
+import com.movistar.tvservices.utils.http.HTTPHelper;
+import com.movistar.tvservices.utils.dns.DNSHelper;
 
 public class ProfilesManager {
     private static final String LOG_TAG = ProfileManager.class.getSimpleName();
