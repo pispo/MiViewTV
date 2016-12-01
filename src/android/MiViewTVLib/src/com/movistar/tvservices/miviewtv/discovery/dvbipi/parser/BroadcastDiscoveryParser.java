@@ -20,15 +20,11 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
     private static final String TAG = "BroadcastDiscovery";
     private static final BroadcastDiscoveryParser instance = new BroadcastDiscoveryParser();
 
-    private Pattern genrePattern = Pattern.compile(".*:([^:\\.]*)(\\.([^:]*))?$");
-    private Pattern parentalRatingPattern = Pattern.compile(".*:([^:]*)$");
-
-    protected BroadcastDiscoveryParser() {}
-
-    public static BroadcastDiscoveryParser getInstance() { return instance; }
+    private static Pattern genrePattern = Pattern.compile(".*:([^:\\.]*)(\\.([^:]*))?$");
+    private static Pattern parentalRatingPattern = Pattern.compile(".*:([^:]*)$");
     
     @Override
-    protected BroadcastDiscoveryData parse(InputStream in) {
+    protected static BroadcastDiscoveryData parse(InputStream in) {
         try {
             return (BroadcastDiscoveryData) super.parse(in);
         } catch (Exception e) {
@@ -37,7 +33,7 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
     }
 
     @Override
-    protected String getTAG() {
+    protected static String getTAG() {
         return TAG;
     }
 
@@ -69,7 +65,7 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
      */
 
     @Override
-    protected Object readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
+    protected static Object readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
         BroadcastDiscoveryData broadcastDiscoveryData = new BroadcastDiscoveryData();
         int depth = parser.getDepth();
 
@@ -89,7 +85,7 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
         return broadcastDiscoveryData;
     }
 
-    private void readServiceList(XmlPullParser parser, BroadcastDiscoveryData broadcastDiscoveryData) throws XmlPullParserException, IOException {
+    private static void readServiceList(XmlPullParser parser, BroadcastDiscoveryData broadcastDiscoveryData) throws XmlPullParserException, IOException {
         int depth = parser.getDepth();
 
         while (parser.next() != XmlPullParser.END_TAG || parser.getDepth() > depth) {
@@ -106,7 +102,7 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
         }
     }
 
-    private BroadcastDiscoveryData.Service readSingleService(XmlPullParser parser) throws XmlPullParserException, IOException {
+    private static BroadcastDiscoveryData.Service readSingleService(XmlPullParser parser) throws XmlPullParserException, IOException {
         BroadcastDiscoveryData.Service service = new BroadcastDiscoveryData.Service();
         int depth = parser.getDepth();
 
@@ -142,7 +138,7 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
         return service;
     }
 
-    private void readServiceLocation(XmlPullParser parser, BroadcastDiscoveryData.Service service) throws XmlPullParserException, IOException {
+    private static void readServiceLocation(XmlPullParser parser, BroadcastDiscoveryData.Service service) throws XmlPullParserException, IOException {
         int depth = parser.getDepth();
 
         while (parser.next() != XmlPullParser.END_TAG || parser.getDepth() > depth) {
@@ -160,7 +156,7 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
         }
     }
 
-    private void readSI(XmlPullParser parser, BroadcastDiscoveryData.Service service) throws XmlPullParserException, IOException {
+    private static void readSI(XmlPullParser parser, BroadcastDiscoveryData.Service service) throws XmlPullParserException, IOException {
         int depth = parser.getDepth();
 
         while (parser.next() != XmlPullParser.END_TAG || parser.getDepth() > depth) {
@@ -187,12 +183,13 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
         }
     }
 
-    private void readAudioAttributes(XmlPullParser parser, BroadcastDiscoveryData.Service service) throws XmlPullParserException, IOException {
+    private static void readAudioAttributes(XmlPullParser parser, BroadcastDiscoveryData.Service service) throws XmlPullParserException, IOException {
         int depth = parser.getDepth();
         while (parser.next() != XmlPullParser.END_TAG || parser.getDepth() > depth) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
+            
             String fourhtlevelName = parser.getName();
             if (null != fourhtlevelName && fourhtlevelName.equals("urn:MixType")) {
                 readAudioMixType(parser, service);
@@ -202,7 +199,7 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
         }
     }
 
-    private void readAudioMixType(XmlPullParser parser, BroadcastDiscoveryData.Service service) throws XmlPullParserException, IOException {
+    private static void readAudioMixType(XmlPullParser parser, BroadcastDiscoveryData.Service service) throws XmlPullParserException, IOException {
         Matcher matcher;
         int depth = parser.getDepth();
 
@@ -210,6 +207,7 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
+            
             String fifthlevelName = parser.getName();
             if (null != fifthlevelName && fifthlevelName.equals("urn:Name")) { // with no namespaces we have to pass the raw name
                 service.setDolby(parser.nextText().equals("D") ? true : false);
@@ -219,7 +217,7 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
         }
     }
 
-    private void readGenre(XmlPullParser parser, BroadcastDiscoveryData.Service service) {
+    private static void readGenre(XmlPullParser parser, BroadcastDiscoveryData.Service service) {
         String genre = parser.getAttributeValue(ns, "href");
         Matcher matcher = genrePattern.matcher(genre);
 
@@ -227,13 +225,14 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
             if (null != matcher.group(1)) {
                 service.setGenre(Integer.valueOf(matcher.group(1)));
             }
+            
             if (null != matcher.group(3)) {
                 service.setSubgenre(Integer.valueOf(matcher.group(3)));
             }
         }
     }
 
-    private void readParentalGuidance(XmlPullParser parser, BroadcastDiscoveryData.Service service) throws XmlPullParserException, IOException {
+    private static void readParentalGuidance(XmlPullParser parser, BroadcastDiscoveryData.Service service) throws XmlPullParserException, IOException {
         Matcher matcher;
         int depth = parser.getDepth();
 
@@ -241,6 +240,7 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
+            
             String fifthlevelName = parser.getName();
             if (null != fifthlevelName && fifthlevelName.equals("mpeg7:ParentalRating")) { // with no namespaces we have to pass the raw name
                 String parentalRating = parser.getAttributeValue(ns, "href");
@@ -256,12 +256,13 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
         }
     }
 
-    private void readReplacementService(XmlPullParser parser, BroadcastDiscoveryData.Service service) throws XmlPullParserException, IOException {
+    private static void readReplacementService(XmlPullParser parser, BroadcastDiscoveryData.Service service) throws XmlPullParserException, IOException {
         int depth = parser.getDepth();
         while (parser.next() != XmlPullParser.END_TAG || parser.getDepth() > depth) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
+            
             String fifthlevelName = parser.getName();
             if (null != fifthlevelName && fifthlevelName.equals("TextualIdentifier")) {
                 service.setReplacementService(parser.getAttributeValue(ns, "ServiceName"));
