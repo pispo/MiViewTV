@@ -1,4 +1,4 @@
-package com.movistar.tvservices.discovery.dvbipi.data.parser;
+package com.movistar.tvservices.discovery.dvbipi.parser;
 
 import android.util.Log;
 
