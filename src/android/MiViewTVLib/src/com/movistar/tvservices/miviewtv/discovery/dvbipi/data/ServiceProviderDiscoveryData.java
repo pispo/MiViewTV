@@ -1,10 +1,9 @@
 package com.movistar.tvservices.miviewtv.discovery.dvbipi.data;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
+import java.util.Map;
 import java.util.HashMap;
+import com.movistar.tvservices.utils.metadata.MetadataContent;
+import com.movistar.tvservices.miviewtv.discovery.dvbipi.parser.ServiceProviderDiscoveryParser;
 
 public class ServiceProviderDiscoveryData {
     private static final String LOG_TAG = ServiceProviderDiscoveryData.class.getSimpleName();
@@ -52,7 +51,7 @@ public class ServiceProviderDiscoveryData {
 
     @Override
     public boolean hasData() {
-        return (records.size() > 0);
+        return (serviceProviders.size() > 0);
     }
 
     public void addServiceProvider(ServiceProvider serviceProvider) {
@@ -63,7 +62,7 @@ public class ServiceProviderDiscoveryData {
         return serviceProviders.get(domainName);
     }
 
-    public static ServiceProviderDiscoveryData decode(MetadataContent metadataContent) {
-        return ServiceProviderDiscoveryParser.getInstance().parse(metaDataContent.getByteArrayInputStream());
+    public static ServiceProviderDiscoveryData decode(Metadatacontent metadatacontent) {
+        return ServiceProviderDiscoveryParser.getInstance().parse(metadatacontent.getByteArrayInputStream());
     }
 }
