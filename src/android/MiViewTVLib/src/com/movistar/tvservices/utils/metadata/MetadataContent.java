@@ -27,7 +27,6 @@ public class MetadataContent {
     private long timestamp;
     private int totalFragments;
     private int completedFragments;
-    private byte[] bytes;
     private String string;
     private int bufferLength;
     private byte[][] fragmentsBuffer;
@@ -68,10 +67,6 @@ public class MetadataContent {
         return completedFragments;
     }
 
-    public byte[] getBytes() {
-        return bytes;
-    }
-
     public int getBufferLength() {
         return bufferLength;
     }
@@ -107,7 +102,7 @@ public class MetadataContent {
         if ((completedFragments == totalFragments) && (null != this.fragmentsBuffer)) {
             // tenemos el fichero completo
             int offset = 0;
-            bytes = new byte[bufferLength];
+            byte[] bytes = new byte[bufferLength];
 
             for (byte[] currentBuffer : fragmentsBuffer) {
                 System.arraycopy(currentBuffer, 0, bytes, offset, currentBuffer.length);
@@ -118,7 +113,6 @@ public class MetadataContent {
             
             if (type == TYPE_ASCII || type == TYPE_XML) {
                 string = new String(bytes, StandardCharsets.UTF_8);
-                bytes = null;
             }
             // TODO: verify CRC
             return COMPLETED;
@@ -126,25 +120,15 @@ public class MetadataContent {
         
         return completedFragments;
     }
-
-    public byte[] getBytes() {
+    
+    public ByteArrayInputStream getByteArrayInputStream() {
         if (null != string)
-            string.getBytes();
+            return new ByteArrayInputStream(string.getBytes());
         else
             return null;
     }
 
-    public ByteArrayInputStream getByteArrayInputStream(){
-        if (null != string) {
-            return new ByteArrayInputStream(string.getBytes());
-        }
-        else {
-            return null;
-        }
-    }
-
     public void cleanup() {
-        bytes = null;
         string = null;
         fragmentsBuffer = null;
         completedFragments = 0;
