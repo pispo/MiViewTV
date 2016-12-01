@@ -5,8 +5,8 @@ import com.movistar.tvservices.miviewtv.discovery.dvbipi.DvbIpiConstants;
 import com.movistar.tvservices.miviewtv.discovery.dvbipi.dvbstp.DvbStpReader;
 
 /**
- * This class implements the Service Provider that download all the info related to the Service Discovery & Selection
- * and configuration of the Infocast service
+ * This class implements the Service Discovery Provider that download all the info related to the Service Discovery & Selection
+ * and configuration
  */
 public class ServiceDiscoveryManager {
 
