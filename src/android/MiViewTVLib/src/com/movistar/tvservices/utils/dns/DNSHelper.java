@@ -8,7 +8,7 @@ import org.xbill.DNS.SimpleResolver;
 import org.xbill.DNS.TextParseException;
 
 public class DNSHelper {
-    private static final String LOG_TAG = HTTPHelper.class.getSimpleName();
+    private static final String LOG_TAG = DNSHelper.class.getSimpleName();
 
     public static String resolve(String domain) {
         String address = null;
