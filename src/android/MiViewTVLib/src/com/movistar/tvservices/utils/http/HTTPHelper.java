@@ -1,5 +1,7 @@
 package com.movistar.tvservices.utils.http;
 
+import android.util.Log;
+
 import java.io.Reader;
 import java.io.IOException;
 import java.io.InputStreamReader;
