@@ -157,7 +157,6 @@ public class BroadcastDiscoveryData {
         }
     }
 
-    @Override
     public boolean hasData() {
         return (services.size() > 0);
     }
