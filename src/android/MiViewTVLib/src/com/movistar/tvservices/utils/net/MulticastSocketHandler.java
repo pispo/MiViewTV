@@ -55,7 +55,7 @@ public class MulticastSocketHandler {
 
         } catch (IOException e) {
             e.printStackTrace();
-            detach();
+            disconnect();
             throw e;
         }
     }
