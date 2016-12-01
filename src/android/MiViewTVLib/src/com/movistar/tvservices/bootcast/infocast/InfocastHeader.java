@@ -86,7 +86,7 @@ public class InfocastHeader {
                 | (buffer[bufferOffset + 43] & 0xff);
 
         // add dynamic head size to header length
-        int length = HEADER_LENGTH + ((this.dynamicHeadInfo >> (13 - 4)) & 0x0030);
+        int length = HEADER_LENGTH + ((dynamicHeadInfo >> (13 - 4)) & 0x0030);
 
         return new InfocastHeader(type, precoding, packetNumber, totalPackets, id, dynamicHeadInfo, length);
     }
