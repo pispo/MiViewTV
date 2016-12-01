@@ -82,7 +82,7 @@ public class DvbStpReader {
 
                 payloadLength = packet.getLength() - header.getLength() - (header.getCRC() * 4);
 
-                if (null == (content = metadataContents.get(contentKey))) {
+                if (null == (metadataContent = metadataContents.get(contentKey))) {
 
                     metadataContent = new MetadataContent(contentKey,
                             header.getLastSectionNumber() + 1, nowTime, header.getSegmentVersion());
