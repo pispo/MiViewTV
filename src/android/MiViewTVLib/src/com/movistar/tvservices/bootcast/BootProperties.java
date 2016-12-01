@@ -14,8 +14,8 @@ public class BootProperties {
     private static Map<String, String> properties = new HashMap<String, String>();
 
     static {
-        properties.add (CFG_RESOURCES_URL_ID, null);
-        properties.add (VAR_UTCTIME_ID, null);
+        properties.put (CFG_RESOURCES_URL_ID, null);
+        properties.put (VAR_UTCTIME_ID, null);
     }
 
     public static List<String> getPropertiesName () {
