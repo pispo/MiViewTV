@@ -33,7 +33,7 @@ public class BCGDiscoveryData {
             this.version = version;
         }
 
-        public HashMap<String, TransportMode> getLocations() {
+        public Map<String, TransportMode> getLocations() {
             return locations;
         }
 
@@ -50,7 +50,7 @@ public class BCGDiscoveryData {
         private String source;
         private String address;
         private int port;
-        private HashMap<int, int> segments;
+        private Map<Integer, Integer> segments = new HashMap<Integer, Integer>();
 
         public String getSource() {
             return source;
@@ -76,7 +76,7 @@ public class BCGDiscoveryData {
             this.port = port;
         }
 
-        public HashMap<int, int> getSegments() {
+        public Map<Integer, Integer> getSegments() {
             return segments;
         }
 
