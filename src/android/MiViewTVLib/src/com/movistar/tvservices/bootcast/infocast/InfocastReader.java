@@ -16,8 +16,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * This class implements an Infocast Reader that download all the info related to the booting
@@ -64,11 +63,11 @@ public class InfocastReader {
         return new InfocastReader(address, port);
     }
 
-    public Map<String, MetadataContent<String>> download(List<String> contentKeys) throws InfocastException {
+    public List<MetadataContent<String>> download(List<String> contentIds) throws InfocastException {
         InfocastHeader header;
         DatagramPacket packet = null;
         MetadataContent<String> metadataContent = null;
-        Map<String, MetadataContent<String>> metadataContents = new HashMap<String, MetadataContent<String>>();
+        List<MetadataContent<String>> metadataContents = new LinkedList<MetadataContent<String>>();
 
         long initialTime = SystemClock.elapsedRealtime(); // TODO: bail out on exceeded time limit
         long nowTime = initialTime;
@@ -82,7 +81,7 @@ public class InfocastReader {
         if (!connected)
             throw new InfocastException("InfocastReader is closed");
 
-        while (contentKeys.size() > 0 && (nowTime-initialTime < TIMEOUT)) {
+        while (contentIds.size() > 0 && (nowTime-initialTime < TIMEOUT)) {
 
             if (null == (packet = multicastSocketHandler.readPacket()))
                 continue;
@@ -91,7 +90,7 @@ public class InfocastReader {
 
             header = InfocastHeader.decode(packet.getData(), packet.getOffset(), packet.getLength());
 
-            if (contentKeys.contains(header.getId())) {
+            if (contentIds.contains(header.getId())) {
 
                 payloadLength = packet.getLength() - header.getLength();
 
@@ -135,7 +134,7 @@ public class InfocastReader {
                         completedContents++;
                     }
 
-                    metadataContents.put(header.getId(), metadataContent);
+                    metadataContents.add(metadataContent);
                     totalContents++;
 
                 } else if (!metadataContent.isBufferCompleted()) {
@@ -150,10 +149,9 @@ public class InfocastReader {
                 break;
         }
         
-        for (Map.Entry<String, MetadataContent<String>> entry : metadataContents.entrySet()) {
-            MetadataContent<String> content = entry.getValue();
-            if (!content.isBufferCompleted())
-                metadataContents.remove(content.getId());
+        for (MetadataContent<String>> metadataContent : metadataContents) {
+            if (!metadataContent.isBufferCompleted())
+                metadataContents.remove(metadataContent);
         }
 
         Log.d(LOG_TAG, "finished Infocast processing.");
