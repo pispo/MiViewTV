@@ -24,7 +24,7 @@ public class MulticastSocketHandler {
     private MulticastSocket serviceSocket;
     private DatagramPacket packet = new DatagramPacket(buf, buf.length);
 
-    private MulticastSocketHandler (String address, int port) throws UnknownHostException, IllegalArgumentException {
+    public MulticastSocketHandler(String address, int port) throws UnknownHostException, IllegalArgumentException {
         String errorString = "";
 
         this.serviceAddress = InetAddress.getByName(address);
