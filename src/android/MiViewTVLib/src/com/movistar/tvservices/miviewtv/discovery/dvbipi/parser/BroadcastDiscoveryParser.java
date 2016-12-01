@@ -26,6 +26,15 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
     protected BroadcastDiscoveryParser() {}
 
     public static BroadcastDiscoveryParser getInstance() { return instance; }
+    
+    @Override
+    protected BroadcastDiscoveryData parse(InputStream in) {
+        try {
+            return (BroadcastDiscoveryData) super.parse(in);
+        } catch (Exception e) {
+            return null;
+        }   
+    }
 
     @Override
     protected String getTAG() {
