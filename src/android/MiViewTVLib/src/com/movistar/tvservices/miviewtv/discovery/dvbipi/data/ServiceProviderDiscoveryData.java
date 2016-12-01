@@ -61,7 +61,7 @@ public class ServiceProviderDiscoveryData {
         return serviceProviders.get(domainName);
     }
 
-    public static ServiceProviderDiscoveryData decode(MetadataContent<Integer> metadataContent) {
+    public static ServiceProviderDiscoveryData fromMetadata(MetadataContent<Integer> metadataContent) {
         return ServiceProviderDiscoveryParser.parse(metadataContent.getByteArrayInputStream());
     }
 }
