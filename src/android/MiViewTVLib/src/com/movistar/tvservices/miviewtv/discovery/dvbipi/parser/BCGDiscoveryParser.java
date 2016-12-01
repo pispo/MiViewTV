@@ -21,7 +21,7 @@ public class BCGDiscoveryParser extends ServiceDiscoveryParser {
 
     protected BCGDiscoveryParser() {}
 
-    public BCGDiscoveryParser getInstance() { return instance; }
+    public static BCGDiscoveryParser getInstance() { return instance; }
 
     @Override
     protected String getTAG() {
