@@ -118,7 +118,7 @@ public class DvbStpReader {
             }
         }
       
-        for (Map.Entry<Integer, MetadataContent> entry : metadataContents) {
+        for (Map.Entry<Integer, MetadataContent> entry : metadataContents.entrySet()) {
             MetadataContent content = entry.getValue();
             if (!content.isBufferCompleted())
                 metadataContents.remove(content.getId());
