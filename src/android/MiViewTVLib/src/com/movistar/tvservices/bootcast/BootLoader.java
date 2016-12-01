@@ -31,7 +31,7 @@ public class BootLoader {
             throw new BootException("Failed to download bootcast information", e);
 
         } finally {
-            if (infocastLoader)
+            if (infocastLoader != null)
                 infocastLoader.close();
         }
     }
