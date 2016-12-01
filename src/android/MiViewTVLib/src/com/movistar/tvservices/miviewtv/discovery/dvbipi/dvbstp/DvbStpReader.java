@@ -78,7 +78,7 @@ public class DvbStpReader {
             header = DvbStpHeader.decode(packet.getData(), packet.getOffset(), packet.getLength());
             contentKey = (header.getPayloadId() << 16) | header.getSegmentId();
 
-            if (null != contentKeys.contains(header.contentKey())) {
+            if (null != contentKeys.contains(header.getId())) {
 
                 payloadLength = packet.getLength() - header.getLength() - (header.getCRC() * 4);
 
@@ -117,8 +117,9 @@ public class DvbStpReader {
                     break;
             }
         }
-
-        for (MetadataContent content : metadataContents) {
+      
+        for (Map.Entry<Integer, MetadataContent> entry : metadataContents) {
+            MetadataContent content = entry.getValue();
             if (!content.isBufferCompleted())
                 metadataContents.remove(content.getId());
         }
