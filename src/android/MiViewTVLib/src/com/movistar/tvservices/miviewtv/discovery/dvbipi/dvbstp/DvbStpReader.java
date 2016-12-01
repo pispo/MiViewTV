@@ -49,7 +49,7 @@ public class DvbStpReader {
         }
     }
 
-    public DvbStpReader open (String address, int port) throws DvbStpException {
+    public static DvbStpReader open (String address, int port) throws DvbStpException {
         return new DvbStpReader(address, port);
     }
 
