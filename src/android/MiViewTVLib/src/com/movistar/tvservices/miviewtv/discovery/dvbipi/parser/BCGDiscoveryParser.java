@@ -136,7 +136,7 @@ public class BCGDiscoveryParser extends ServiceDiscoveryParser {
             }
         }
 
-        return map;
+        return transportMode;
     }
 
     private void readPayloadId(XmlPullParser parser, BCGDiscoveryData.TransportMode transportMode) throws XmlPullParserException, IOException {
