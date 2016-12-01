@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.movistar.tvservices.miviewtv.discovery.dvbipi.data.BroadcastDiscoveryData;
+
 /**
  * Created by Sergio Moreno Mozota on 30/11/15.
  *
