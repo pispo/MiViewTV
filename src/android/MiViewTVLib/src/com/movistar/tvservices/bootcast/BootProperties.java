@@ -11,7 +11,7 @@ public class BootProperties {
     private static final String CFG_RESOURCES_URL_ID = "cfg.resources.url";
     private static final String VAR_UTCTIME_ID = "var.utctime";
 
-    private static Map<String, Object> properties = new HashMap<String, Object>();
+    private static Map<String, String> properties = new HashMap<String, String>();
 
     static {
         properties.add (CFG_RESOURCES_URL_ID, null);
