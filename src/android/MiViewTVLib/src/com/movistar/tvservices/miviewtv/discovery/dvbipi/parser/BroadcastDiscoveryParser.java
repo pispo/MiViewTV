@@ -24,7 +24,7 @@ public class BroadcastDiscoveryParser extends ServiceDiscoveryParser {
     private static Pattern parentalRatingPattern = Pattern.compile(".*:([^:]*)$");
     
     @Override
-    protected static BroadcastDiscoveryData parse(InputStream in) {
+    public static BroadcastDiscoveryData parse(InputStream in) {
         try {
             return (BroadcastDiscoveryData) super.parse(in);
         } catch (Exception e) {
