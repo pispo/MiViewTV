@@ -30,7 +30,7 @@ public class ServiceDiscoveryManager {
         int port = Integer.parseInt(platformProfile.getDvbEntryPoint().split(":")[1]);
 
         DvbStpReader dvbStpReader = DvbStpReader.open(address, port);
-        Map<Integer, MetadataContent> metadataContents = dvbStpReader.download (DvbIpiConstants.SDS_SERVICE_PROVIDER_DISCOVERY);
+        List<MetadataContent<Integer>> metadataContents = dvbStpReader.download (DvbIpiConstants.SDS_SERVICE_PROVIDER_DISCOVERY);
         dvbStpReader.close();
     }
 }
