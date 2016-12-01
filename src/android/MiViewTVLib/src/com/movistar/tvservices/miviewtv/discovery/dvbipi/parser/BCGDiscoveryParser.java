@@ -94,23 +94,28 @@ public class BCGDiscoveryParser extends ServiceDiscoveryParser {
     }
 
     private static BCGDiscoveryData.BCG readBCG(XmlPullParser parser) throws XmlPullParserException, IOException {
-        BCGDiscoveryData.BCG bcg = new BCGDiscoveryData.BCG();
-        bcg.setId(parser.getAttributeValue(ns,"Id"));
-        int depth = parser.getDepth();
+        BCGDiscoveryData.BCG bcg = null;      
+        String bcgId = parser.getAttributeValue(ns, "Id");
+        
+        if (bcgId.equals("EPG")) {
+            bcg = new BCGDiscoveryData.BCG();
+            bcg.setId(bcgId);
+            int depth = parser.getDepth();
 
-        while (parser.next() != XmlPullParser.END_TAG || parser.getDepth() > depth) {
-            if (parser.getEventType() != XmlPullParser.START_TAG) {
-                continue;
-            }
+            while (parser.next() != XmlPullParser.END_TAG || parser.getDepth() > depth) {
+                if (parser.getEventType() != XmlPullParser.START_TAG) {
+                    continue;
+                }
 
-            String secondlevelName = parser.getName();
-            if (null != secondlevelName && secondlevelName.equals("Name")) {
-                parser.next();
-                bcg.setName(parser.getText());
-            } else if (null != secondlevelName && secondlevelName.equals("TransportMode")) {
-                readTransport(parser, bcg);
-            } else {
-                skip(parser);
+                String secondlevelName = parser.getName();
+                if (null != secondlevelName && secondlevelName.equals("Name")) {
+                    parser.next();
+                    bcg.setName(parser.getText());
+                } else if (null != secondlevelName && secondlevelName.equals("TransportMode")) {
+                    readTransport(parser, bcg);
+                } else {
+                    skip(parser);
+                }
             }
         }
 
