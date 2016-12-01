@@ -4,6 +4,10 @@ import com.movistar.tvservices.miviewtv.profiles.*;
 import com.movistar.tvservices.miviewtv.discovery.dvbipi.DvbIpiConstants;
 import com.movistar.tvservices.miviewtv.discovery.dvbipi.dvbstp.DvbStpReader;
 
+import com.movistar.tvservices.utils.metadata.MetadataContent;
+
+import java.util.Map;
+
 /**
  * This class implements the Service Discovery Provider that download all the info related to the Service Discovery & Selection
  * and configuration
@@ -20,14 +24,13 @@ public class ServiceDiscoveryManager {
 
     public void initialize()
     {
-        PlatformProfile platformProfile = ProfileManager.getInstance().getPlatformProfile();
+        PlatformProfile platformProfile = ProfilesManager.getInstance().getPlatformProfile();
 
         String address = platformProfile.getDvbEntryPoint().split(":")[0];
         int port = Integer.parseInt(platformProfile.getDvbEntryPoint().split(":")[1]);
 
         DvbStpReader dvbStpReader = DvbStpReader.open(address, port);
-        Hashmap<int, MetadataContent> metadataContents = dvbStpReader.download (DvbIpiConstants.SDS_SERVICE_PROVIDER_DISCOVERY);
+        Map<Integer, MetadataContent> metadataContents = dvbStpReader.download (DvbIpiConstants.SDS_SERVICE_PROVIDER_DISCOVERY);
         dvbStpReader.close();
-
     }
 }
