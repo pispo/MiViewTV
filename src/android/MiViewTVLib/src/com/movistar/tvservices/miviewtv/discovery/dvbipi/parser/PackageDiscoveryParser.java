@@ -16,7 +16,7 @@ public class PackageDiscoveryParser extends ServiceDiscoveryParser {
     private String TAG = "PackageDiscovery";
 
     @Override
-    protected static PackageDiscoveryData parse(InputStream in) {
+    public static PackageDiscoveryData parse(InputStream in) {
         try {
             return (PackageDiscoveryData) super.parse(in);
         } catch (Exception e) {
