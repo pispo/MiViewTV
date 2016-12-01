@@ -9,8 +9,8 @@ package com.movistar.tvservices.bootcast.infocast;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.movistar.miviewtv.MetaDataInfoFile;
-import com.movistar.miviewtv.net.MulticastDataSource;
+import com.movistar.tvservices.utils.metadata.MetadataContent;
+import com.movistar.tvservices.utils.net.MulticastSocketHandler;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
