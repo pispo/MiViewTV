@@ -41,6 +41,10 @@ public class PackageDiscoveryData {
         }
     }
 
+    public boolean hasData() {
+        return (packages.size() > 0);
+    }
+    
     public Package getPackage(String packageName) {
         return packages.get(packageName);
     }
