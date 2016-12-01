@@ -22,7 +22,7 @@ public class ProfilesManager {
         load();
     }
 
-    public ProfilesManager getInstance() { return instance; }
+    public static ProfilesManager getInstance() { return instance; }
 
     private void load() throws IOException
     {
