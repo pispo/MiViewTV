@@ -101,7 +101,7 @@ public class DvbStpHeader {
         int privateHeaderLength = buffer[bufferOffset + 11] & 0x0f;
 
         // add private head size to header length
-        int length = HEADER_LENGTH + ((this.privateHeaderLength + this.providerIdFlag) * 4);
+        int length = HEADER_LENGTH + ((privateHeaderLength + providerIdFlag) * 4);
 
         return new DvbStpHeader(version, reserved, encription, crc, totalSegmentSize, payloadId, segmentId,
                 segmentVersion, sectionNumber, lastSectionNumber, compression, providerIdFlag,
