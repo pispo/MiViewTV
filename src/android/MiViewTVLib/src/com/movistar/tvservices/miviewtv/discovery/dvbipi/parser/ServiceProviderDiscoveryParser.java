@@ -16,7 +16,7 @@ public class ServiceProviderDiscoveryParser extends ServiceDiscoveryParser {
 
     protected ServiceProviderDiscoveryParser() {}
 
-    public ServiceProviderDiscoveryParser getInstance() { return instance; }
+    public static ServiceProviderDiscoveryParser getInstance() { return instance; }
 
     @Override
     protected String getTAG() {
