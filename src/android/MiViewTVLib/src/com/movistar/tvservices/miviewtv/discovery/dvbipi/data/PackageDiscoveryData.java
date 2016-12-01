@@ -36,7 +36,7 @@ public class PackageDiscoveryData {
             return services;
         }
 
-        public void addService(int serviceName, int logicalChannelNumber) {
+        public void addService(String serviceName, int logicalChannelNumber) {
             services.put(serviceName, logicalChannelNumber);
         }
     }
