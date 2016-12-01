@@ -7,7 +7,7 @@ import com.movistar.tvservices.utils.http.HTTPHelper;
 import com.movistar.tvservices.utils.dns.DNSHelper;
 
 public class ProfilesManager {
-    private static final String LOG_TAG = ProfileManager.class.getSimpleName();
+    private static final String LOG_TAG = ProfilesManager.class.getSimpleName();
 
     private static final String serviceAddress = DNSHelper.resolve("www.svc.imagenio.telefonica.net");
     private static final int servicePort = 2001;
