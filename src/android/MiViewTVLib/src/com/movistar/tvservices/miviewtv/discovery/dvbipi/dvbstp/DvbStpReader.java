@@ -8,8 +8,7 @@ import java.net.DatagramPacket;
 import java.net.UnknownHostException;
 
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.LinkedList;
 
 import com.movistar.tvservices.utils.metadata.MetadataContent;
 import com.movistar.tvservices.utils.net.MulticastSocketHandler;
@@ -53,22 +52,20 @@ public class DvbStpReader {
         return new DvbStpReader(address, port);
     }
 
-    public Map<Integer, MetadataContent<Integer>> download(List<Integer> contentKeys) throws DvbStpException {
+    public List<MetadataContent<Integer>> download(List<Integer> contentIds) throws DvbStpException {
         DvbStpHeader header;
         DatagramPacket packet;
         MetadataContent<Integer> metadataContent = null;
-        Map<Integer, MetadataContent<Integer>> metadataContents = new HashMap<Integer, MetadataContent<Integer>>();
-
-        int contentKey = 0;
-        int payloadLength = 0;
+        List<MetadataContent<Integer>> metadataContents = new LinkedList<MetadataContent<Integer>>();
 
         long initialTime = SystemClock.elapsedRealtime(); // TODO: bail out on exceeded time limit
         long nowTime = initialTime;
 
+        int payloadLength = 0;
         int totalContents = 0;
         int completedContents = 0;
 
-        while (contentKeys.size() > 0 && (nowTime-initialTime < TIMEOUT)) {
+        while (contentIds.size() > 0 && (nowTime-initialTime < TIMEOUT)) {
 
             if (null == (packet = multicastSocketHandler.readPacket()))
                 continue;
@@ -76,15 +73,14 @@ public class DvbStpReader {
             nowTime = SystemClock.elapsedRealtime();
 
             header = DvbStpHeader.decode(packet.getData(), packet.getOffset(), packet.getLength());
-            contentKey = (header.getPayloadId() << 16) | header.getSegmentId();
 
-            if (contentKeys.contains(header.getId())) {
+            if (contentIds.contains(header.getId())) {
 
                 payloadLength = packet.getLength() - header.getLength() - (header.getCRC() * 4);
 
-                if (null == (metadataContent = metadataContents.get(contentKey))) {
+                if (null == (metadataContent = metadataContents.get(header.getId()))) {
 
-                    metadataContent = new MetadataContent<Integer>(contentKey,
+                    metadataContent = new MetadataContent<Integer>(header.getId(),
                             header.getLastSectionNumber() + 1, nowTime, header.getSegmentVersion());
 
                     if (MetadataContent.COMPLETED == metadataContent.addFragment(packet.getData(), packet.getOffset(),
@@ -93,17 +89,18 @@ public class DvbStpReader {
                         completedContents++;
                     }
 
-                    metadataContents.put(contentKey, metadataContent);
+                    metadataContents.add(metadataContent);
                     totalContents++;
 
                 } else if (!metadataContent.isBufferCompleted()) {
 
                     if (metadataContent.getVersion() != header.getSegmentVersion()) {
 
-                        metadataContent = new MetadataContent<Integer>(contentKey,
+                        metadataContent = new MetadataContent<Integer>(header.getId(),
                                 header.getLastSectionNumber() + 1, nowTime, header.getSegmentVersion());
 
-                        metadataContents.put(contentKey, metadataContent);
+                        metadataContents.remove(metadataContent);
+                        metadataContents.add(metadataContent);
                     }
 
                     if (MetadataContent.COMPLETED == metadataContent.addFragment(packet.getData(), packet.getOffset(),
@@ -118,10 +115,9 @@ public class DvbStpReader {
             }
         }
       
-        for (Map.Entry<Integer, MetadataContent<Integer>> entry : metadataContents.entrySet()) {
-            MetadataContent<Integer> content = entry.getValue();
-            if (!content.isBufferCompleted())
-                metadataContents.remove(content.getId());
+        for (List<MetadataContent<Integer>> metadataContent : metadataContents) {
+            if (!metadataContent.isBufferCompleted())
+                metadataContents.remove(metadataContent.getId());
         }
 
         Log.d(LOG_TAG, "finished DvbStp processing.");
