@@ -14,14 +14,9 @@ import com.movistar.tvservices.miviewtv.discovery.dvbipi.data.ServiceProviderDis
  */
 public class ServiceProviderDiscoveryParser extends ServiceDiscoveryParser {
     private static final String TAG = "ServiceProviderDiscovery";
-    private static final ServiceProviderDiscoveryParser instance = new ServiceProviderDiscoveryParser();
-
-    protected ServiceProviderDiscoveryParser() {}
-
-    public static ServiceProviderDiscoveryParser getInstance() { return instance; }
 
     @Override
-    protected ServiceProviderDiscoveryData parse(InputStream in) {
+    public static ServiceProviderDiscoveryData parse(InputStream in) {
         try {
             return (ServiceProviderDiscoveryData) super.parse(in);
         } catch (Exception e) {
@@ -45,7 +40,7 @@ public class ServiceProviderDiscoveryParser extends ServiceDiscoveryParser {
      */
 
     @Override
-    protected Object readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
+    protected static Object readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
         ServiceProviderDiscoveryData serviceProviderDiscoveryData = new ServiceProviderDiscoveryData();
         int depth = parser.getDepth();
 
