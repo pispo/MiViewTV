@@ -67,13 +67,15 @@ public class InfocastReader {
     public Map<String, MetadataContent> download(List<String> contentKeys) throws InfocastException {
         InfocastHeader header;
         DatagramPacket packet = null;
-        MetadataContent content = null;
+        MetadataContent metadataConten = null;
         Map<String, MetadataContent> metadataContents = new HashMap<String, MetadataContent>();
 
         long initialTime = SystemClock.elapsedRealtime(); // TODO: bail out on exceeded time limit
         long nowTime = initialTime;
 
         int contentType;
+        int payloadLength = 0;
+        
         int totalContents = 0;
         int completedContents = 0;
 
@@ -153,8 +155,9 @@ public class InfocastReader {
             if ((totalContents > 0) && (totalContents == completedContents))
                 break;
         }
-
-        for (MetadataContent content : metadataContents) {
+        
+        for (Map.Entry<String, MetadataContent> entry : metadataContents.entrySet()) {
+            MetadataContent content = entry.getValue();
             if (!content.isBufferCompleted())
                 metadataContents.remove(content.getId());
         }
