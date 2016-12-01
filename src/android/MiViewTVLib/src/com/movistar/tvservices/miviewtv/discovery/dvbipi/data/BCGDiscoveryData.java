@@ -1,5 +1,12 @@
 package com.movistar.tvservices.miviewtv.discovery.dvbipi.data;
 
+import java.util.Map;
+import java.util.HashMap;
+
+import com.movistar.tvservices.utils.metadata.MetadataContent;
+import com.movistar.tvservices.miviewtv.discovery.dvbipi.parser.BCGDiscoveryParser;
+
+
 public class BCGDiscoveryData {
     private static final String LOG_TAG = BCGDiscoveryData.class.getSimpleName();
 
@@ -91,7 +98,7 @@ public class BCGDiscoveryData {
         return guides.get(id);
     }
 
-    public static BCGDiscoveryData fromMetadata(MetaDataContent metaDataContent) {
-        return BCGDiscoveryParser.getInstance().parse(metaDataContent.getByteArrayInputStream());
+    public static BCGDiscoveryData fromMetadata(MetadataContent metadataContent) {
+        return BCGDiscoveryParser.getInstance().parse(metadataContent.getByteArrayInputStream());
     }
 }
