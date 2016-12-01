@@ -56,7 +56,7 @@ public class BroadcastDiscoveryData {
             return logoURI;
         }
 
-        public void seLogoURI(String logoURI) {
+        public void setLogoURI(String logoURI) {
             this.logoURI = logoURI;
         }
 
