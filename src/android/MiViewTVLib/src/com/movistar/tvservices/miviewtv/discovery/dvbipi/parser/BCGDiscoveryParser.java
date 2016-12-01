@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.movistar.tvservices.miviewtv.discovery.dvbipi.data.BCGDiscoveryData;
+
 /**
  * Created by Sergio Moreno Mozota on 30/11/15.
  *
