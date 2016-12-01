@@ -10,7 +10,7 @@ public class ServiceProviderDiscoveryData {
 
     private Map<String, ServiceProvider> serviceProviders = new HashMap<String, ServiceProvider>();
 
-    public class ServiceProvider {
+    public static class ServiceProvider {
         private String domainName;
         private int version;
         private String address;
