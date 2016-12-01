@@ -54,6 +54,6 @@ public class PackageDiscoveryData {
     }
 
     public static PackageDiscoveryData fromMetadata(MetadataContent<Integer> metadataContent) {
-        return (PackageDiscoveryData) PackageDiscoveryParser.getInstance().parse(metadataContent.getByteArrayInputStream());
+        return PackageDiscoveryParser.getInstance().parse(metadataContent.getByteArrayInputStream());
     }
 }
