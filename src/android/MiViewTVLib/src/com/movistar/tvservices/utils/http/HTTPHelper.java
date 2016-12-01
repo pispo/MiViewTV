@@ -13,13 +13,13 @@ public class HTTPHelper {
 
     public static Reader GET(String address, int port, String uri) throws IOException {
         Reader reader = null;
+        HttpURLConnection connection = null;
 
         URL url = new URL("http://" + address + ":" + port + uri);
 
         try {
 
-            HttpURLConnection connection = safelyOpenConnection(url);
-
+            connection = safelyOpenConnection(url);
             int responseCode = safelyConnect(connection);
 
             switch (responseCode) {
@@ -31,7 +31,8 @@ public class HTTPHelper {
             }
 
         } finally {
-            connection.disconnect();
+            if (connection != null)
+                connection.disconnect();
         }
 
         return reader;
