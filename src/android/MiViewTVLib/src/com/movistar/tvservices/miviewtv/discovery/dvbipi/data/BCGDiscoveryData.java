@@ -17,7 +17,6 @@ public class BCGDiscoveryData {
         private String name;
         private int version;
         
-        
         private Map<String, TransportMode> transportModes =  new HashMap<String, TransportMode>();
 
         public String getId() {
