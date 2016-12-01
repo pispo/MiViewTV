@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android" 
         id="com.movistar.tvservices" version="0.7.0">
   
-  <name>MiViewTVPlugin</name>
+  <name>MiViewTV</name>
   <description>Cordova MiViewTV Service Plugin</description>
 
   <engines>
