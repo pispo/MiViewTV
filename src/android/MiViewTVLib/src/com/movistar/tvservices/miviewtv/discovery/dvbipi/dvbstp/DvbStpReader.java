@@ -50,7 +50,7 @@ public class DvbStpReader {
     }
 
     public DvbStpReader open (String address, int port) throws DvbStpException {
-        return new dvbStpReader(address, port);
+        return new DvbStpReader(address, port);
     }
 
     public Map<Integer, MetadataContent> download(List<Integer> contentKeys) throws DvbStpException {
