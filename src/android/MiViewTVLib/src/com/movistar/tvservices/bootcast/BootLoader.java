@@ -24,8 +24,10 @@ public class BootLoader {
 
             Map<String, MetadataContent> metadataContents = infocastReader.download(BootProperties.getPropertiesName());
 
-            for (MetadataContent metadataContent : metadataContents)
+            for (Map.Entry<String, MetadataContent> entry : metadataContents.entrySet()) {
+                MetadataContent content = entry.getValue();
                 BootProperties.setPropertyValue (metadataContent.getName(), metadataContent.getString());
+            }
 
         } catch (InfocastException e) {
             throw new BootException("Failed to download bootcast information", e);
