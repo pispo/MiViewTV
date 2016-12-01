@@ -169,7 +169,7 @@ public class BroadcastDiscoveryData {
         return services.get(serviceName);
     }
 
-    public static BroadcastDiscoveryData fromMetadata(MetadataContent metadataContent) {
+    public static BroadcastDiscoveryData fromMetadata(MetadataContent<Integer> metadataContent) {
         return (BroadcastDiscoveryData) BroadcastDiscoveryParser.getInstance().parse(metadataContent.getByteArrayInputStream());
     }
 }
