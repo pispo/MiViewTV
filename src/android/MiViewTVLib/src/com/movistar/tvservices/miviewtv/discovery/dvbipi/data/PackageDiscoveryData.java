@@ -3,7 +3,7 @@ package com.movistar.tvservices.miviewtv.discovery.dvbipi.data;
 import java.util.Map;
 import java.util.HashMap;
 import com.movistar.tvservices.utils.metadata.MetadataContent;
-import com.movistar.tvservices.miviewtv.discovery.dvbipi.data.parser.PackageDiscoveryParser;
+import com.movistar.tvservices.miviewtv.discovery.dvbipi.parser.PackageDiscoveryParser;
 
 public class PackageDiscoveryData {
     private static final String LOG_TAG = PackageDiscoveryData.class.getSimpleName();
@@ -14,7 +14,7 @@ public class PackageDiscoveryData {
         private String packageName;
         private String packageId;
 
-        private Map<String, int> services = new HashMap<String, int>();
+        private Map<String, Integer> services = new HashMap<String, Integer>();
 
         public String getPackageName() {
             return packageName;
@@ -32,7 +32,7 @@ public class PackageDiscoveryData {
             this.packageId = packageId;
         }
 
-        public HashMap<String, int> getServices() {
+        public Map<String, Integer> getServices() {
             return services;
         }
 
