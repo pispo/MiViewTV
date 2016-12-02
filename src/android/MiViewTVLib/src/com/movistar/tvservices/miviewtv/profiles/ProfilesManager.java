@@ -1,6 +1,8 @@
 package com.movistar.tvservices.miviewtv.profiles;
 
+import android.util.Log;
 import android.util.JsonReader;
+
 import java.io.IOException;
 
 import com.movistar.tvservices.utils.http.HTTPHelper;
@@ -9,19 +11,41 @@ import com.movistar.tvservices.utils.dns.DNSHelper;
 public class ProfilesManager {
     private static final String LOG_TAG = ProfilesManager.class.getSimpleName();
 
-    private static final String serviceAddress = DNSHelper.resolve("www.svc.imagenio.telefonica.net");
-    private static final int servicePort = 2001;
+    private static final String DEFAULT_SERVICE_ADDR = DNSHelper.resolve("www.svc.imagenio.telefonica.net");
+    private static final int DEFAULT_SERVICE_PORT = 2001;
+        
+    private String serviceAddress = DEFAULT_SERVICE_ADDR;
+    private int servicePort = DEFAULT_SERVICE_PORT;
 
-    private static final ProfilesManager instance = new ProfilesManager();
+    private static final ProfilesManager instance = null;
 
     private ClientProfile clientProfile;
     private PlatformProfile platformProfile;
 
     protected ProfilesManager() throws IOException {
+        Pattern pattern = Pattern.compile("(https?)://([^:^/]*)(:(\\d*))?(.*)?");
+        String mvtvWsUrl = BootProperties.getPropertyValue(BootProperties.CFG_RESOURCES_URL_ID);                
+        
+        if (mvtvWsUrl != null) {
+            Matcher matcher = pattern.matcher(mvtvWsUrl);
+            if (false == matcher.matches()) {
+                Log.d(LOG_TAG, "ProfilesManager: No valid MiviewTV web services URL found.");
+                return;
+            }
+            
+            serviceAddress = DNSHelper.resolve(matcher.group(2));
+            servicePort = Integer.valueOf(matcher.group(4));
+        }
+        
         load();
     }
 
-    public static ProfilesManager getInstance() { return instance; }
+    public static ProfilesManager getInstance() { 
+        if (instance == null)
+            instance = new ProfilesManager();
+        
+        return instance;
+    }
 
     private void load() throws IOException
     {
