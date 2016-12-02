@@ -39,7 +39,7 @@ public abstract class ServiceDiscoveryParser extends DiscoveryParser {
         return object;
     }
 
-    abstract protected static String getTAG();
+    abstract protected String getTAG();
 
-    abstract protected static Object readEntry(XmlPullParser parser) throws XmlPullParserException, IOException;
+    abstract protected Object readEntry(XmlPullParser parser) throws XmlPullParserException, IOException;
 }
