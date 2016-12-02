@@ -48,5 +48,5 @@ abstract public class DiscoveryParser {
         }
     }
 
-    abstract protected static Object readFeed(XmlPullParser parser) throws XmlPullParserException, IOException;
+    abstract protected Object readFeed(XmlPullParser parser) throws XmlPullParserException, IOException;
 }
