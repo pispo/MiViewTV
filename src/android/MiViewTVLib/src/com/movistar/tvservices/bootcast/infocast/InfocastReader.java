@@ -149,7 +149,7 @@ public class InfocastReader {
                 break;
         }
         
-        for (MetadataContent<String>> metadataContent : metadataContents) {
+        for (MetadataContent<String> metadataContent : metadataContents) {
             if (!metadataContent.isBufferCompleted())
                 metadataContents.remove(metadataContent);
         }
