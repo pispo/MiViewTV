@@ -115,7 +115,7 @@ public class DvbStpReader {
             }
         }
       
-        for (List<MetadataContent<Integer>> metadataContent : metadataContents) {
+        for (MetadataContent<Integer> metadataContent : metadataContents) {
             if (!metadataContent.isBufferCompleted())
                 metadataContents.remove(metadataContent.getId());
         }
