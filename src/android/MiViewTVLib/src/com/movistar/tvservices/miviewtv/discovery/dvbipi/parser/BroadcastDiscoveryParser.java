@@ -5,7 +5,9 @@ import android.util.Log;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.InputStream;
 import java.io.IOException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
