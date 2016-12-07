@@ -37,6 +37,7 @@ public class HTTPHelper {
             switch (responseCode) {
                 case HttpURLConnection.HTTP_OK:
                     reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8);
+                    break;
 
                 default:
                     throw new IOException("Bad HTTP response: " + responseCode);
