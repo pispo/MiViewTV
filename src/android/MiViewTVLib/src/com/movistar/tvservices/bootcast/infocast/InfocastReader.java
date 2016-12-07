@@ -15,8 +15,10 @@ import com.movistar.tvservices.utils.net.MulticastSocketHandler;
 import java.io.IOException;
 import java.net.DatagramPacket;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.LinkedList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * This class implements an Infocast Reader that download all the info related to the booting
@@ -67,7 +69,7 @@ public class InfocastReader {
         InfocastHeader header;
         DatagramPacket packet = null;
         MetadataContent<String> metadataContent = null;
-        List<MetadataContent<String>> metadataContents = new LinkedList<MetadataContent<String>>();
+        Map<String, MetadataContent<String>> metadataContents = new LinkedHashMap<String, MetadataContent<String>>();
 
         long initialTime = SystemClock.elapsedRealtime(); // TODO: bail out on exceeded time limit
         long nowTime = initialTime;
@@ -134,7 +136,7 @@ public class InfocastReader {
                         completedContents++;
                     }
 
-                    metadataContents.add(metadataContent);
+                    metadataContents.put(header.getId(), metadataContent);
                     totalContents++;
 
                 } else if (!metadataContent.isBufferCompleted()) {
@@ -148,15 +150,17 @@ public class InfocastReader {
             if ((totalContents > 0) && (totalContents == completedContents))
                 break;
         }
-        
-        for (MetadataContent<String> metadataContent : metadataContents) {
-            if (!metadataContent.isBufferCompleted())
-                metadataContents.remove(metadataContent);
+
+        for (Map.Entry<String, MetadataContent<String>> entry : metadataContents.entrySet()) {
+            MetadataContent<String> content = entry.getValue();
+
+            if (!content.isBufferCompleted())
+                metadataContents.remove(content.getId());
         }
 
         Log.d(LOG_TAG, "finished Infocast processing.");
 
-        return metadataContents;
+        return Collections.list(Collections.enumeration(metadataContents.values()));
     }
 
     public void close() {
