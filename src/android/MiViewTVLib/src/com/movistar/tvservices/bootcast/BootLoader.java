@@ -11,14 +11,14 @@ public class BootLoader {
     private static final String LOG_TAG = BootLoader.class.getSimpleName();
 
     private static final String DEFAULT_OPCH_ADDR = "239.0.2.10"; //239.0.2.30
-    private static final int DEFAULT_POCH_PORT = 22222;
+    private static final int DEFAULT_OPCH_PORT = 22222;
 
     public static void download() throws BootException {
         InfocastReader infocastReader = null;
 
         try {
 
-            infocastReader = InfocastReader.open(DEFAULT_OPCH_ADDR, DEFAULT_POCH_PORT);
+            infocastReader = InfocastReader.open(DEFAULT_OPCH_ADDR, DEFAULT_OPCH_PORT);
 
             List<MetadataContent<String>> metadataContents = infocastReader.download(BootProperties.getPropertiesName());
 
