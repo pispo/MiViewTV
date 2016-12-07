@@ -5,8 +5,13 @@ import android.util.JsonReader;
 
 import java.io.IOException;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.movistar.tvservices.utils.http.HTTPHelper;
 import com.movistar.tvservices.utils.dns.DNSHelper;
+
+import com.movistar.tvservices.bootcast.BootProperties;
 
 public class ProfilesManager {
     private static final String LOG_TAG = ProfilesManager.class.getSimpleName();
@@ -17,7 +22,7 @@ public class ProfilesManager {
     private String serviceAddress = DEFAULT_SERVICE_ADDR;
     private int servicePort = DEFAULT_SERVICE_PORT;
 
-    private static final ProfilesManager instance = null;
+    private static ProfilesManager instance = null;
 
     private ClientProfile clientProfile;
     private PlatformProfile platformProfile;
@@ -47,8 +52,7 @@ public class ProfilesManager {
         return instance;
     }
 
-    private void load() throws IOException
-    {
+    private void load() throws IOException {
         clientProfile = ClientProfile.fromJSONStream(HTTPHelper.GET(serviceAddress, servicePort, "/appserver/mvtv.do?action=getClientProfile"));
         platformProfile = PlatformProfile.fromJSONStream(HTTPHelper.GET(serviceAddress, servicePort, "/appserver/mvtv.do?action=getPlatformProfile"));
     }
