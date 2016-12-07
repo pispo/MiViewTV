@@ -53,10 +53,9 @@
       </config-file>
             
       <framework src="src/android/MiViewTVLib" custom="true" />
-      <framework src="src/android/extras.gradle" custom="true" type="gradleReference" />
             
       <!-- dnsjava jar file -->
-      <source-file src="src/android/libs/dnsjava-2.1.7.jar" target-dir="libs" />
+      <source-file src="src/android/libs/dnsjava-2.1.7.jar" target-dir="libs" framework="true" />
                               
       <!-- cordova plugin src files -->
       <source-file src="src/android/MiViewTVPlugin.java" target-dir="src/com/movistar/tvservices/cordova/plugin" />
