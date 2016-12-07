@@ -83,7 +83,8 @@ public class DvbStpReader {
                 if (null == (metadataContent = metadataContents.get(header.getId()))) {
 
                     metadataContent = new MetadataContent<Integer>(header.getId(),
-                            header.getLastSectionNumber() + 1, MetadataContent.TYPE_UNKNOWN, nowTime, header.getSegmentVersion());
+                            header.getLastSectionNumber() + 1, MetadataContent.TYPE_UNKNOWN, nowTime,
+                            header.getSegmentVersion());
 
                     if (MetadataContent.COMPLETED == metadataContent.addFragment(packet.getData(), packet.getOffset(),
                             header.getLength(), payloadLength, header.getSectionNumber(), header.getSegmentVersion())) {
@@ -99,7 +100,8 @@ public class DvbStpReader {
                     if (metadataContent.getVersion() != header.getSegmentVersion()) {
 
                         metadataContent = new MetadataContent<Integer>(header.getId(),
-                                header.getLastSectionNumber() + 1, nowTime, header.getSegmentVersion());
+                                header.getLastSectionNumber() + 1, MetadataContent.TYPE_UNKNOWN, nowTime,
+                                header.getSegmentVersion());
 
                         metadataContents.put(header.getId(), metadataContent);
                     }
