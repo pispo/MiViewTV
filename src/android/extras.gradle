@@ -1,4 +1,0 @@
-
-dependencies {
-    provided files('libs/dnsjava-2.1.7.jar')
-}
