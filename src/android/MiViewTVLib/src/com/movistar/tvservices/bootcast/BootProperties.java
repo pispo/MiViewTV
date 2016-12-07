@@ -8,8 +8,8 @@ import java.util.HashMap;
 public class BootProperties {
     private static final String LOG_TAG = BootProperties.class.getSimpleName();
 
-    private static final String CFG_RESOURCES_URL_ID = "cfg.resources.url";
-    private static final String VAR_UTCTIME_ID = "var.utctime";
+    public static final String CFG_RESOURCES_URL_ID = "cfg.resources.url";
+    public static final String VAR_UTCTIME_ID = "var.utctime";
 
     private static Map<String, String> properties = new HashMap<String, String>();
 
