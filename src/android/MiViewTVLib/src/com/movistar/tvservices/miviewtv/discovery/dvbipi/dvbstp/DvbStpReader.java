@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.UnknownHostException;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.LinkedList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.movistar.tvservices.utils.metadata.MetadataContent;
 import com.movistar.tvservices.utils.net.MulticastSocketHandler;
@@ -56,7 +58,7 @@ public class DvbStpReader {
         DvbStpHeader header;
         DatagramPacket packet;
         MetadataContent<Integer> metadataContent = null;
-        List<MetadataContent<Integer>> metadataContents = new LinkedList<MetadataContent<Integer>>();
+        Map<Integer, MetadataContent<Integer>> metadataContents = new LinkedHashMap<Integer, MetadataContent<Integer>>();
 
         long initialTime = SystemClock.elapsedRealtime(); // TODO: bail out on exceeded time limit
         long nowTime = initialTime;
@@ -81,7 +83,7 @@ public class DvbStpReader {
                 if (null == (metadataContent = metadataContents.get(header.getId()))) {
 
                     metadataContent = new MetadataContent<Integer>(header.getId(),
-                            header.getLastSectionNumber() + 1, nowTime, header.getSegmentVersion());
+                            header.getLastSectionNumber() + 1, MetadataContent.TYPE_UNKNOWN, nowTime, header.getSegmentVersion());
 
                     if (MetadataContent.COMPLETED == metadataContent.addFragment(packet.getData(), packet.getOffset(),
                             header.getLength(), payloadLength, header.getSectionNumber(), header.getSegmentVersion())) {
@@ -89,7 +91,7 @@ public class DvbStpReader {
                         completedContents++;
                     }
 
-                    metadataContents.add(metadataContent);
+                    metadataContents.put(header.getId(), metadataContent);
                     totalContents++;
 
                 } else if (!metadataContent.isBufferCompleted()) {
@@ -99,8 +101,7 @@ public class DvbStpReader {
                         metadataContent = new MetadataContent<Integer>(header.getId(),
                                 header.getLastSectionNumber() + 1, nowTime, header.getSegmentVersion());
 
-                        metadataContents.remove(metadataContent);
-                        metadataContents.add(metadataContent);
+                        metadataContents.put(header.getId(), metadataContent);
                     }
 
                     if (MetadataContent.COMPLETED == metadataContent.addFragment(packet.getData(), packet.getOffset(),
@@ -114,15 +115,17 @@ public class DvbStpReader {
                     break;
             }
         }
-      
-        for (MetadataContent<Integer> content : metadataContents) {
+
+        for (Map.Entry<Integer, MetadataContent<Integer>> entry : metadataContents.entrySet()) {
+            MetadataContent<Integer> content = entry.getValue();
+
             if (!content.isBufferCompleted())
-                metadataContents.remove(content);
+                metadataContents.remove(content.getId());
         }
 
         Log.d(LOG_TAG, "finished DvbStp processing.");
 
-        return metadataContents;
+        return Collections.list(Collections.enumeration(metadataContents.values()));
     }
 
     public void close() {
