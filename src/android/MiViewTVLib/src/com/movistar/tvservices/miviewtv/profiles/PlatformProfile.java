@@ -27,8 +27,8 @@ public class PlatformProfile {
 
     public static PlatformProfile fromJSONStream(Reader reader)
     {
+        JsonReader jsonReader = null;
         PlatformProfile platformProfile = new PlatformProfile();
-        JsonReader jsonReader;
 
         try {
 
@@ -79,10 +79,13 @@ public class PlatformProfile {
 
         } finally {
             try {
-                jsonReader.close();
+                if (jsonReader != null)
+                    jsonReader.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+        return platformProfile;
     }
 }
