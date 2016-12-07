@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+
+import com.movistar.tvservices.utils.metadata.MetadataContent;
 import com.movistar.tvservices.miviewtv.discovery.dvbipi.DvbIpiConstants;
 import com.movistar.tvservices.miviewtv.discovery.dvbipi.data.BCGDiscoveryData;
 
@@ -24,17 +26,19 @@ public class BCGDiscoveryParser extends ServiceDiscoveryParser {
     private static final String TAG = "BCGDiscovery";
     private static final BCGDiscoveryParser instance = new BCGDiscoveryParser();
 
-    @Override
-    public static BCGDiscoveryData parse(InputStream in) {
+    protected BCGDiscoveryParser() {}
+
+    public static BCGDiscoveryData parse(MetadataContent content) {
+
         try {
-            return (BCGDiscoveryData) super.parse(in);
+            return (BCGDiscoveryData) new BCGDiscoveryParser().parse(content.getByteArrayInputStream());
         } catch (Exception e) {
             return null;
         }   
     }
     
     @Override
-    protected static String getTAG() {
+    protected String getTAG() {
         return TAG;
     }
 
@@ -75,7 +79,7 @@ public class BCGDiscoveryParser extends ServiceDiscoveryParser {
      */
 
     @Override
-    protected static Object readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
+    protected Object readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
         BCGDiscoveryData bcgDiscoveryData = new BCGDiscoveryData();
         int depth = parser.getDepth();
 
@@ -95,7 +99,7 @@ public class BCGDiscoveryParser extends ServiceDiscoveryParser {
         return bcgDiscoveryData;
     }
 
-    private static BCGDiscoveryData.BCG readBCG(XmlPullParser parser) throws XmlPullParserException, IOException {
+    private BCGDiscoveryData.BCG readBCG(XmlPullParser parser) throws XmlPullParserException, IOException {
         BCGDiscoveryData.BCG bcg = null;      
         String bcgId = parser.getAttributeValue(ns, "Id");
         
@@ -124,7 +128,7 @@ public class BCGDiscoveryParser extends ServiceDiscoveryParser {
         return bcg;
     }
 
-    private static BCGDiscoveryData.TransportMode readTransport(XmlPullParser parser, BCGDiscoveryData.BCG bcg) throws XmlPullParserException, IOException {
+    private BCGDiscoveryData.TransportMode readTransport(XmlPullParser parser, BCGDiscoveryData.BCG bcg) throws XmlPullParserException, IOException {
         BCGDiscoveryData.TransportMode transportMode = new BCGDiscoveryData.TransportMode();
         int depth = parser.getDepth();
 
@@ -152,7 +156,7 @@ public class BCGDiscoveryParser extends ServiceDiscoveryParser {
         return transportMode;
     }
 
-    private static void readPayloadId(XmlPullParser parser, BCGDiscoveryData.TransportMode transportMode) throws XmlPullParserException, IOException {
+    private void readPayloadId(XmlPullParser parser, BCGDiscoveryData.TransportMode transportMode) throws XmlPullParserException, IOException {
         int depth = parser.getDepth();
 
         while (parser.next() != XmlPullParser.END_TAG || parser.getDepth() > depth) {
@@ -171,7 +175,7 @@ public class BCGDiscoveryParser extends ServiceDiscoveryParser {
         }
     }
 
-    private static void readSegment(XmlPullParser parser, BCGDiscoveryData.TransportMode transportMode) throws XmlPullParserException, IOException {
+    private void readSegment(XmlPullParser parser, BCGDiscoveryData.TransportMode transportMode) throws XmlPullParserException, IOException {
         int depth = parser.getDepth();
 
         while (parser.next() != XmlPullParser.END_TAG || parser.getDepth() > depth) {

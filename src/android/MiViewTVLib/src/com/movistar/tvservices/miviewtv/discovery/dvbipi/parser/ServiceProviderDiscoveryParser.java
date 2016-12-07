@@ -6,6 +6,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.InputStream;
 import java.io.IOException;
 
+import com.movistar.tvservices.utils.metadata.MetadataContent;
 import com.movistar.tvservices.miviewtv.discovery.dvbipi.data.ServiceProviderDiscoveryData;
 
 /**
@@ -16,10 +17,11 @@ import com.movistar.tvservices.miviewtv.discovery.dvbipi.data.ServiceProviderDis
 public class ServiceProviderDiscoveryParser extends ServiceDiscoveryParser {
     private static final String TAG = "ServiceProviderDiscovery";
 
-    @Override
-    public static ServiceProviderDiscoveryData parse(InputStream in) {
+    protected ServiceProviderDiscoveryParser() {}
+
+    public static ServiceProviderDiscoveryData parse(MetadataContent content) {
         try {
-            return (ServiceProviderDiscoveryData) super.parse(in);
+            return (ServiceProviderDiscoveryData) new ServiceProviderDiscoveryParser().parse(content.getByteArrayInputStream());
         } catch (Exception e) {
             return null;
         }   
@@ -41,7 +43,7 @@ public class ServiceProviderDiscoveryParser extends ServiceDiscoveryParser {
      */
 
     @Override
-    protected static Object readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
+    protected Object readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
         ServiceProviderDiscoveryData serviceProviderDiscoveryData = new ServiceProviderDiscoveryData();
         int depth = parser.getDepth();
 
@@ -68,7 +70,7 @@ public class ServiceProviderDiscoveryParser extends ServiceDiscoveryParser {
         return serviceProviderDiscoveryData;
     }
 
-    private static void readOffering(XmlPullParser parser, ServiceProviderDiscoveryData.ServiceProvider serviceProvider) throws XmlPullParserException, IOException {
+    private void readOffering(XmlPullParser parser, ServiceProviderDiscoveryData.ServiceProvider serviceProvider) throws XmlPullParserException, IOException {
         int depth = parser.getDepth();
 
         while (parser.next() != XmlPullParser.END_TAG || parser.getDepth() > depth) {
@@ -85,7 +87,7 @@ public class ServiceProviderDiscoveryParser extends ServiceDiscoveryParser {
         }
     }
 
-    private static void readPush(XmlPullParser parser, ServiceProviderDiscoveryData.ServiceProvider serviceProvider) throws XmlPullParserException, IOException {
+    private void readPush(XmlPullParser parser, ServiceProviderDiscoveryData.ServiceProvider serviceProvider) throws XmlPullParserException, IOException {
         int depth = parser.getDepth();
 
         while (parser.next() != XmlPullParser.END_TAG || parser.getDepth() > depth) {

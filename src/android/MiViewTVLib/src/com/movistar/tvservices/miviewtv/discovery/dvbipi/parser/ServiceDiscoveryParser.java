@@ -16,7 +16,7 @@ public abstract class ServiceDiscoveryParser extends DiscoveryParser {
     private static final String TAG = "ServiceDiscovery";
 
     @Override
-    protected static Object readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
+    protected Object readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
         Object object = null;
         String TAG = getTAG();
 
