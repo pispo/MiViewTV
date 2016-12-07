@@ -45,14 +45,15 @@ public class ProfilesManager {
         load();
     }
 
-    public static ProfilesManager getInstance() { 
+    public static ProfilesManager getInstance() throws IOException {
         if (instance == null)
             instance = new ProfilesManager();
         
         return instance;
     }
 
-    private void load() throws IOException {
+    private void load() throws IOException
+    {
         clientProfile = ClientProfile.fromJSONStream(HTTPHelper.GET(serviceAddress, servicePort, "/appserver/mvtv.do?action=getClientProfile"));
         platformProfile = PlatformProfile.fromJSONStream(HTTPHelper.GET(serviceAddress, servicePort, "/appserver/mvtv.do?action=getPlatformProfile"));
     }
