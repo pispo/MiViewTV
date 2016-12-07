@@ -6,6 +6,7 @@ import com.movistar.tvservices.miviewtv.discovery.dvbipi.dvbstp.DvbStpReader;
 
 import com.movistar.tvservices.utils.metadata.MetadataContent;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -30,7 +31,8 @@ public class ServiceDiscoveryManager {
         int port = Integer.parseInt(platformProfile.getDvbEntryPoint().split(":")[1]);
 
         DvbStpReader dvbStpReader = DvbStpReader.open(address, port);
-        List<MetadataContent<Integer>> metadataContents = dvbStpReader.download (DvbIpiConstants.SDS_SERVICE_PROVIDER_DISCOVERY);
+        List<MetadataContent<Integer>> metadataContents = dvbStpReader.download(
+                Arrays.asList(new Integer[]{DvbIpiConstants.SDS_SERVICE_PROVIDER_DISCOVERY}));
         dvbStpReader.close();
     }
 }
