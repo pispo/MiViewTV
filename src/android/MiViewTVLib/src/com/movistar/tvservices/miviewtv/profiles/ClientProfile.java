@@ -54,13 +54,13 @@ public class ClientProfile {
 
     public void setPartition(int partition) { this.partition = partition; }
 
-    public int setTvWholesaler(int tvWholesaler) { this.tvWholesaler = tvWholesaler; }
+    public void setTvWholesaler(int tvWholesaler) { this.tvWholesaler = tvWholesaler; }
 
-    public int setClientVersion(int clientVersion) { this.clientVersion = clientVersion; }
+    public void setClientVersion(int clientVersion) { this.clientVersion = clientVersion; }
 
-    public int setHdTV(int hdTV) { this.hdTV = hdTV; }
+    public void setHdTV(int hdTV) { this.hdTV = hdTV; }
 
-    public int setNumIPs(int numIPs) { this.numIPs = numIPs; }
+    public void setNumIPs(int numIPs) { this.numIPs = numIPs; }
 
     public void setUpdateTime(int updateTime) { this.updateTime = updateTime; }
 
