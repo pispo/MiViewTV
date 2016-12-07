@@ -62,6 +62,6 @@ public class ServiceProviderDiscoveryData {
     }
 
     public static ServiceProviderDiscoveryData fromMetadata(MetadataContent<Integer> metadataContent) {
-        return ServiceProviderDiscoveryParser.parse(metadataContent.getByteArrayInputStream());
+        return ServiceProviderDiscoveryParser.parse(metadataContent);
     }
 }
