@@ -5,6 +5,7 @@
     <name>MiViewTVPlugin</name>
     <description>Cordova MiViewTV Service Plugin</description>
     <repo>https://github.com/portizb/MiViewTV.git</repo>
+    <license>Apache 2.0 License</license>
     <keywords>miviewtv</keywords>
     <author>Pablo Ortiz</author>
 
@@ -20,8 +21,6 @@
     <js-module src="www/miviewtv.js" name="miviewtv">
         <clobbers target="miviewtv" />
     </js-module>
-
-    <license>Apache 2.0 License</license>
 
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
@@ -46,7 +45,7 @@
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
-            <!-- <uses-permission android:name="android.permission.WAKE_LOCK" /> -->
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
             <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
         </config-file>
 
