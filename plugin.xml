@@ -5,11 +5,7 @@
   
   <name>MiViewTVPlugin</name>
   <description>Cordova MiViewTV Service Plugin</description>
-
-  <engines>
-    <engine name="cordova" version=">=3.4.0"/>
-  </engines>
-        
+       
   <repo>https://github.com/portizb/MiViewTV.git</repo>
         
   <keywords>miviewtv</keywords>
@@ -19,6 +15,10 @@
   <!-- dependencies -->
   <dependency id="miviewtv-plugin" />
 
+  <engines>
+    <engine name="cordova" version=">=3.4.0"/>
+  </engines>
+        
   <asset src="www/miviewtv.js" target="js/miviewtv.js"/>
 
     <js-module src="www/miviewtv.js" name="miviewtv">
