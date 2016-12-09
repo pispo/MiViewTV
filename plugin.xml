@@ -29,10 +29,6 @@
                 <param name="android-package" value="com.movistar.tvservices.cordova.plugin.MiViewTVPlugin"/>
                 <param name="onload" value="true" />
             </feature>
-
-            <feature name="org.xbill.DNS">
-                <param name="android-package" value="org.xbill.DNS"/>
-            </feature>
         </config-file>  
 
         <config-file target="res/xml/config.xml" parent="/*">
