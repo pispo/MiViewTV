@@ -153,7 +153,9 @@ public class MiViewTVPlugin extends CordovaPlugin {
             callbackContext.error ("Invalid action");
         }
         else {
+		
             Log.d(LOG_TAG, "The service is not running");
+	    startService();
             callbackContext.error ("The service is not running");
         }
 
