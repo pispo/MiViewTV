@@ -1,7 +1,7 @@
 package com.movistar.tvservices.bootcast;
 
-import com.movistar.tvservices.utils.metadata.MetadataContent;
 import com.movistar.tvservices.bootcast.infocast.InfocastReader;
+import com.movistar.tvservices.bootcast.infocast.InfocastContent;
 import com.movistar.tvservices.bootcast.infocast.InfocastException;
 
 import android.util.Log;
@@ -20,10 +20,10 @@ public class BootLoader {
 
             infocastReader = InfocastReader.open(DEFAULT_OPCH_ADDR, DEFAULT_OPCH_PORT);
 
-            List<MetadataContent<String>> metadataContents = infocastReader.download(BootProperties.getPropertiesName());
+            List<InfocastContent> infocastContents = infocastReader.download(BootProperties.getPropertiesName());
 
-            for (MetadataContent<String> metadataContent : metadataContents) {
-                BootProperties.setPropertyValue (metadataContent.getId(), metadataContent.getString());
+            for (InfocastContent content : infocastContents) {
+                BootProperties.setPropertyValue (content.getId(), content.getString());
             }
 
         } catch (InfocastException e) {
