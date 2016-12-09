@@ -1,5 +1,7 @@
 package com.movistar.tvservices.utils.dns;
 
+import java.net.UnknownHostException;
+
 import org.xbill.DNS.ARecord;
 import org.xbill.DNS.Lookup;
 import org.xbill.DNS.Record;
