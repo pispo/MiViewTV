@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
  * Copyright Telefónica de España SAU 2015
  */
 
-public class MetadataContent<K> {
+public abstract class MetadataContent<K> {
 
     /**
      * Constants
