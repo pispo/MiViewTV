@@ -6,6 +6,8 @@ import com.movistar.tvservices.miviewtv.discovery.dvbipi.dvbstp.DvbStpReader;
 
 import com.movistar.tvservices.utils.metadata.MetadataContent;
 
+import java.io.IOException;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,23 +18,41 @@ import java.util.List;
 public class ServiceDiscoveryManager {
 
     private static final String LOG_TAG = ServiceDiscoveryManager.class.getSimpleName();
-    private static final ServiceDiscoveryManager serviceDiscoveryManager = new ServiceDiscoveryManager();
 
-    protected ServiceDiscoveryManager() {
+    private static ServiceDiscoveryManager instance = null;
+
+    protected ServiceDiscoveryManager() throws ServiceDiscoveryException {
+        initialize();
     }
 
-    public ServiceDiscoveryManager getInstance() { return serviceDiscoveryManager; }
+    public static ServiceDiscoveryManager getInstance() throws ServiceDiscoveryException {
+        if (instance == null)
+            instance = new ServiceDiscoveryManager();
 
-    public void initialize()
-    {
-        PlatformProfile platformProfile = ProfilesManager.getInstance().getPlatformProfile();
+        return instance;
+    }
 
-        String address = platformProfile.getDvbEntryPoint().split(":")[0];
-        int port = Integer.parseInt(platformProfile.getDvbEntryPoint().split(":")[1]);
+    public void initialize() throws ServiceDiscoveryException {
+        DvbStpReader dvbStpReader = null;
 
-        DvbStpReader dvbStpReader = DvbStpReader.open(address, port);
-        List<MetadataContent<Integer>> metadataContents = dvbStpReader.download(
-                Arrays.asList(new Integer[]{DvbIpiConstants.SDS_SERVICE_PROVIDER_DISCOVERY}));
-        dvbStpReader.close();
+        try {
+
+            PlatformProfile platformProfile = ProfilesManager.getInstance().getPlatformProfile();
+
+            String address = platformProfile.getDvbEntryPoint().split(":")[0];
+            int port = Integer.parseInt(platformProfile.getDvbEntryPoint().split(":")[1]);
+
+            dvbStpReader = DvbStpReader.open(address, port);
+            List<MetadataContent<Integer>> metadataContents = dvbStpReader.download(
+                    Arrays.asList(new Integer[]{DvbIpiConstants.SDS_SERVICE_PROVIDER_DISCOVERY}));
+
+        } catch (IOException e)
+        {
+            throw new ServiceDiscoveryException("ServiceDiscoveryManager: Initialization error", e);
+
+        } finally {
+            if (dvbStpReader != null)
+                dvbStpReader.close();
+        }
     }
 }
