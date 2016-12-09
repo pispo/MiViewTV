@@ -10,7 +10,7 @@
     <author>Pablo Ortiz</author>
 
     <!-- dependencies -->
-    <dependency id="miviewtv-plugin" />
+    <!-- <dependency id="miviewtv-plugin" /> -->
 
     <engines>
         <engine name="cordova" version=">=3.4.0"/>
