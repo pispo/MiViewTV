@@ -1,0 +1,27 @@
+{
+  "name": "miviewtv-plugin",
+  "version": "1.0.0.dev",
+  "description": "Prevent app from going to sleep in background.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/portizb/MiViewTV.git"
+  },
+  "keywords": [
+    "miviewtv",
+  ],
+  "platforms": [
+    "android"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=6.0.0"
+    }
+  ],
+  "author": "Pablo Ortiz",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/portizb/MiViewTV/issues"
+  },
+  "homepage": "https://github.com/portizb/MiViewTV#readme"
+}
