@@ -31,7 +31,7 @@ public class MiViewTVService extends Service {
     private final IBinder binder = new LocalBinder();
 
     // Partial wake lock to prevent the app from going to sleep when locked
-    //private PowerManager.WakeLock wakeLock;
+    private PowerManager.WakeLock wakeLock;
 
     // Fixed ID for the 'foreground' notification
     public static final int NOTIFICATION_ID = -574543954;
@@ -86,13 +86,13 @@ public class MiViewTVService extends Service {
 
         startForeground(NOTIFICATION_ID, makeNotification());
 
-/*      PowerManager powerMgr = (PowerManager)
+        PowerManager powerMgr = (PowerManager)
                 getSystemService(POWER_SERVICE);
 
         wakeLock = powerMgr.newWakeLock(
                 PowerManager.PARTIAL_WAKE_LOCK, "MiViewTVService");
 
-        wakeLock.acquire(); */
+        wakeLock.acquire();
     }
 
     /**
@@ -101,10 +101,10 @@ public class MiViewTVService extends Service {
     private void sleepWell() {
         stopForeground(true);
 
-/*      if (wakeLock != null) {
+        if (wakeLock != null) {
             wakeLock.release();
             wakeLock = null;
-        } */
+        } 
     }
 
     /**
