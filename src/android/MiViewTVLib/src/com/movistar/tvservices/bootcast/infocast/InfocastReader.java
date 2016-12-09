@@ -9,7 +9,6 @@ package com.movistar.tvservices.bootcast.infocast;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.movistar.tvservices.utils.metadata.MetadataContent;
 import com.movistar.tvservices.utils.net.MulticastSocketHandler;
 
 import java.io.IOException;
@@ -65,11 +64,11 @@ public class InfocastReader {
         return new InfocastReader(address, port);
     }
 
-    public List<MetadataContent<String>> download(List<String> contentIds) throws InfocastException {
+    public List<InfocastContent> download(List<String> contentIds) throws InfocastException {
         InfocastHeader header;
         DatagramPacket packet = null;
-        MetadataContent<String> metadataContent = null;
-        Map<String, MetadataContent<String>> metadataContents = new LinkedHashMap<String, MetadataContent<String>>();
+        InfocastContent infocastContent = null;
+        Map<String, InfocastContent> infocastContents = new LinkedHashMap<String, InfocastContent>();
 
         long initialTime = SystemClock.elapsedRealtime(); // TODO: bail out on exceeded time limit
         long nowTime = initialTime;
@@ -115,32 +114,32 @@ public class InfocastReader {
                     case TYPE_SW_INFO:
                     case TYPE_TIME:
                     case TYPE_UTCTIME:
-                        contentType = MetadataContent.TYPE_ASCII;
+                        contentType = infocastContent.TYPE_ASCII;
                         break;
                     case TYPE_FILE:
                     case TYPE_SW:
-                        contentType = MetadataContent.TYPE_BINARY;
+                        contentType = infocastContent.TYPE_BINARY;
                         break;
                     default:
-                        contentType = MetadataContent.TYPE_UNKNOWN;
+                        contentType = infocastContent.TYPE_UNKNOWN;
                         break;
                 }
 
-                if (null == (metadataContent = metadataContents.get(header.getId()))) {
+                if (null == (infocastContent = infocastContents.get(header.getId()))) {
 
-                    metadataContent = new MetadataContent<String>(header.getId(), header.getTotalPackets(),
+                    infocastContent = new InfocastContent(header.getId(), header.getTotalPackets(),
                             contentType, nowTime);
 
-                    if (MetadataContent.COMPLETED == metadataContent.addFragment(packet.getData(), packet.getOffset(),
+                    if (InfocastContent.COMPLETED == infocastContent.addFragment(packet.getData(), packet.getOffset(),
                             header.getLength(), payloadLength, header.getPacketNumber() - 1)) {
                         completedContents++;
                     }
 
-                    metadataContents.put(header.getId(), metadataContent);
+                    infocastContents.put(header.getId(), infocastContent);
                     totalContents++;
 
-                } else if (!metadataContent.isBufferCompleted()) {
-                    if (MetadataContent.COMPLETED == metadataContent.addFragment(packet.getData(), packet.getOffset(),
+                } else if (!infocastContent.isBufferCompleted()) {
+                    if (InfocastContent.COMPLETED == infocastContent.addFragment(packet.getData(), packet.getOffset(),
                             header.getLength(), payloadLength, header.getPacketNumber() - 1)) {
                         completedContents++;
                     }
@@ -151,16 +150,16 @@ public class InfocastReader {
                 break;
         }
 
-        for (Map.Entry<String, MetadataContent<String>> entry : metadataContents.entrySet()) {
-            MetadataContent<String> content = entry.getValue();
+        for (Map.Entry<String, InfocastContent> entry : infocastContents.entrySet()) {
+            InfocastContent content = entry.getValue();
 
             if (!content.isBufferCompleted())
-                metadataContents.remove(content.getId());
+                infocastContents.remove(content.getId());
         }
 
         Log.d(LOG_TAG, "finished Infocast processing.");
 
-        return Collections.list(Collections.enumeration(metadataContents.values()));
+        return Collections.list(Collections.enumeration(infocastContents.values()));
     }
 
     public void close() {
