@@ -9,6 +9,15 @@
   <engines>
     <engine name="cordova" version=">=3.4.0"/>
   </engines>
+        
+  <repo>https://github.com/portizb/MiViewTV.git</repo>
+        
+  <keywords>miviewtv</keywords>
+        
+  <author>Pablo Ortiz</author>
+
+  <!-- dependencies -->
+  <dependency id="miviewtv-plugin" />
 
   <asset src="www/miviewtv.js" target="js/miviewtv.js"/>
 
