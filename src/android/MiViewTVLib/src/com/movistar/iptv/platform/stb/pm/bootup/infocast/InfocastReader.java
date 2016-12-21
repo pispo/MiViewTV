@@ -9,7 +9,7 @@ package com.movistar.iptv.platform.stb.pm.bootup.infocast;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.movistar.iptv.utils.net.MulticastSocketHandler;
+import com.movistar.iptv.util.net.MulticastSocketHandler;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
