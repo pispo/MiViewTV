@@ -1,6 +1,6 @@
 package com.movistar.iptv.platform.stb.pm.bootup.infocast;
 
-import com.movistar.iptv.utils.metadata.MetadataContent;
+import com.movistar.iptv.util.metadata.MetadataContent;
 
 public class InfocastContent extends MetadataContent<String> {
 
