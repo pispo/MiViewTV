@@ -1,5 +1,5 @@
 /*global cordova, module*/
-
+/*
 var utils = require('cordova/utils'),
   exec = require('cordova/exec'),
   cordova = require('cordova');
@@ -54,3 +54,14 @@ MiViewTV.prototype.getProgramGuide = function (day, success, err) {
 };
 
 module.exports = MiViewTV;
+*/
+
+module.exports = {
+    getChannels: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "MiViewTVPlugin", "getChannels", []);
+    },
+
+    getProgramGuide: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "MiViewTVPlugin", "getProgramGuide", []);
+    }
+};

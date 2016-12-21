@@ -1,4 +1,4 @@
-package com.movistar.tvservices.cordova.plugin;
+package com.movistar.iptv.cordova.plugin;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
