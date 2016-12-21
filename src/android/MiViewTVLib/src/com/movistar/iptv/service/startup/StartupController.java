@@ -63,7 +63,7 @@ public class StartupController {
 
     public void onProfilesLoaderError() {
         Log.v(LOG_TAG, "Profiles loaded unsuccessfully");
-        ScheduleTaskExecutor.schedule(new createProfilesLoaderTask(), 5);
+        ScheduleTaskExecutor.schedule(new ProfilesLoaderTask(), 5);
     }
 
     public void onServiceDiscoveryCompleted() {
@@ -74,7 +74,7 @@ public class StartupController {
 
     public void onServiceDiscoveryError() {
         Log.v(LOG_TAG, "Services discovered unsuccessfully");
-        ScheduleTaskExecutor.schedule(new createServiceDiscoveryTask(), 5);
+        ScheduleTaskExecutor.schedule(new ServiceDiscoveryTask(), 5);
     }
 
     public void onChannelsLoaderCompleted() {
