@@ -1,4 +1,4 @@
-package com.movistar.tvservices.cordova.plugin;
+package com.movistar.miviewtv.cordova.plugin;
 
 import org.apache.cordova.*;
 
