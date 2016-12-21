@@ -12,7 +12,7 @@ public abstract class DvbStpContent extends MetadataContent<Integer> {
         super(id, fragments, type, time, version);
     }
 
-    public Integer getId () {
+    public Integer getId() {
         return super.getId();
     }
 
