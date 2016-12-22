@@ -23,8 +23,11 @@ public class BootLoader {
             List<InfocastContent> infocastContents = infocastReader.download(BootProperties.getPropertiesName());
 
             for (InfocastContent content : infocastContents) {
-                BootProperties.setPropertyValue (content.getId(), content.getString());
-                Log.v(LOG_TAG, "Configured boot property: [" + content.getId() + ", '" + content.getString() + "']");
+
+                String data = new String(content.getBytes());
+                BootProperties.setPropertyValue (content.getId(), data);
+
+                Log.v(LOG_TAG, "Configured boot property: [" + content.getId() + ", '" + data + "']");
             }
 
             Log.v(LOG_TAG, "Finished Boot loader successfully [" + infocastContents.size() + "]");
