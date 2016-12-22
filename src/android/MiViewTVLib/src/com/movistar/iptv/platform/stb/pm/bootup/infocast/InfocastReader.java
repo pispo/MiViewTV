@@ -108,28 +108,9 @@ public class InfocastReader {
                         break;
                 }
 
-                switch (header.getType()) {
-                    case TYPE_INFO:
-                    case TYPE_GENERIC:
-                    case TYPE_FILE_INFO:
-                    case TYPE_SW_INFO:
-                    case TYPE_TIME:
-                    case TYPE_UTCTIME:
-                        contentType = infocastContent.TYPE_ASCII;
-                        break;
-                    case TYPE_FILE:
-                    case TYPE_SW:
-                        contentType = infocastContent.TYPE_BINARY;
-                        break;
-                    default:
-                        contentType = infocastContent.TYPE_UNKNOWN;
-                        break;
-                }
-
                 if (null == (infocastContent = infocastContents.get(header.getId()))) {
 
-                    infocastContent = new InfocastContent(header.getId(), header.getTotalPackets(),
-                            contentType, nowTime);
+                    infocastContent = new InfocastContent(header.getId(), header.getTotalPackets(), nowTime);
 
                     if (InfocastContent.COMPLETED == infocastContent.addFragment(packet.getData(), packet.getOffset(),
                             header.getLength(), payloadLength, header.getPacketNumber() - 1)) {
