@@ -17,8 +17,6 @@ import com.movistar.iptv.util.net.MulticastSocketHandler;
 /**
  * This class implements an DvbStp reader that read all
  */
-
-
 public class DvbStpReader {
 
     private static final String LOG_TAG = DvbStpReader.class.getSimpleName();
