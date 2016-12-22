@@ -6,7 +6,6 @@ import com.movistar.iptv.platform.stb.sds.SDSConstants;
 
 import com.movistar.iptv.platform.stb.sds.dvbstp.DvbStpReader;
 import com.movistar.iptv.platform.stb.sds.dvbstp.DvbStpContent;
-import com.movistar.iptv.platform.stb.sds.dvbstp.DvbStpXmlContent;
 import com.movistar.iptv.platform.stb.sds.dvbstp.DvbStpException;
 
 import com.movistar.iptv.platform.stb.sds.data.BCGDiscoveryData;
@@ -34,16 +33,16 @@ public class ServiceDiscoveryManager {
 
     private static ServiceDiscoveryManager instance = new ServiceDiscoveryManager();
 
-    private static final int SERVICE_PROVIDER_DISCOVERY_ID = DvbStpXmlContent.generateId(SDSConstants.SDS_SERVICE_PROVIDER_DISCOVERY,
+    private static final int SERVICE_PROVIDER_DISCOVERY_ID = DvbStpContent.generateId(SDSConstants.SDS_SERVICE_PROVIDER_DISCOVERY,
             SDSConstants.SDS_DEFAULT_SECTION_ID);
 
-    private static final int BROADCAST_DISCOVERY_ID = DvbStpXmlContent.generateId(SDSConstants.SDS_BROADCAST_DISCOVERY,
+    private static final int BROADCAST_DISCOVERY_ID = DvbStpContent.generateId(SDSConstants.SDS_BROADCAST_DISCOVERY,
             SDSConstants.SDS_DEFAULT_SECTION_ID);
 
-    private static final int PACKAGE_DISCOVERY_ID = DvbStpXmlContent.generateId(SDSConstants.SDS_PACKAGE_DISCOVERY,
+    private static final int PACKAGE_DISCOVERY_ID = DvbStpContent.generateId(SDSConstants.SDS_PACKAGE_DISCOVERY,
             SDSConstants.SDS_DEFAULT_SECTION_ID);
 
-    private static final int BCG_DISCOVERY_ID = DvbStpXmlContent.generateId(SDSConstants.SDS_BCG_DISCOVERY,
+    private static final int BCG_DISCOVERY_ID = DvbStpContent.generateId(SDSConstants.SDS_BCG_DISCOVERY,
             SDSConstants.SDS_DEFAULT_SECTION_ID);
 
 
@@ -61,7 +60,7 @@ public class ServiceDiscoveryManager {
 
 
     public void discover() throws ServiceDiscoveryException {
-        DvbStpReader<DvbStpXmlContent> dvbStpReader = null;
+        DvbStpReader dvbStpReader = null;
         ServiceProvider serviceProvider = null;
 
         try {
@@ -82,7 +81,7 @@ public class ServiceDiscoveryManager {
 
                 dvbStpReader = DvbStpReader.open(address, port);
 
-                List<? extends DvbStpContent> serviceProviderContents = dvbStpReader.download(
+                List<DvbStpContent> serviceProviderContents = dvbStpReader.download(
                         Arrays.asList(new Integer[]{SERVICE_PROVIDER_DISCOVERY_ID}));
 
                 for (DvbStpContent content : serviceProviderContents) {
@@ -118,10 +117,10 @@ public class ServiceDiscoveryManager {
 
                 dvbStpReader = DvbStpReader.open(serviceProvider.getAddress(), serviceProvider.getPort());
 
-                List<DvbStpXmlContent> serviceDataContents = dvbStpReader.download(
+                List<DvbStpContent> serviceDataContents = dvbStpReader.download(
                         Arrays.asList(new Integer[]{BROADCAST_DISCOVERY_ID, PACKAGE_DISCOVERY_ID, BCG_DISCOVERY_ID}));
 
-                for (DvbStpXmlContent content : serviceDataContents) {
+                for (DvbStpContent content : serviceDataContents) {
                     if (content.getId() == BROADCAST_DISCOVERY_ID) {
                         Log.v(LOG_TAG, "Donwloaded metadata for Broadcast Discovery");
                         broadcastDiscoveryData = BroadcastDiscoveryData.fromMetadata(content);
