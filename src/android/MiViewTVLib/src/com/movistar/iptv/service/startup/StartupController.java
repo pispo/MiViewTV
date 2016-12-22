@@ -68,8 +68,8 @@ public class StartupController {
 
     public void onServiceDiscoveryCompleted() {
         Log.v(LOG_TAG, "Services discovered successfully");
-        //ParallelTaskExecutor.execute(new ChannelsLoaderTask());
-        //ParallelTaskExecutor.execute(new EPGLoaderTask());
+        ParallelTaskExecutor.execute(new ChannelsLoaderTask());
+        ParallelTaskExecutor.execute(new EPGLoaderTask());
     }
 
     public void onServiceDiscoveryError() {
@@ -83,7 +83,7 @@ public class StartupController {
 
     public void onChannelsLoaderError() {
         Log.v(LOG_TAG, "Channels consolidate unsuccessfully");
-        //ParallelTaskExecutor.execute(new ChannelsLoaderTask());
+        ParallelTaskExecutor.execute(new ChannelsLoaderTask());
     }
 
     public void onDayEPGLoaderCompleted(int day) {
@@ -96,6 +96,6 @@ public class StartupController {
 
     public void onEPGLoaderError() {
         Log.v(LOG_TAG, "EPG loaded unsuccessfully");
-        //ParallelTaskExecutor.execute(new EPGLoaderTask());
+        ScheduleTaskExecutor.schedule(new EPGLoaderTask(), 5);
     }
 }
