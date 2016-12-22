@@ -148,8 +148,9 @@ public class BCGDiscoveryParser extends ServiceDiscoveryParser {
                 transportMode.setPort(Integer.valueOf(parser.getAttributeValue(ns, "Port")));
 
                 readPayloadId(parser, transportMode);
-
                 bcg.addTransportMode(transportMode);
+
+                //Log.v(LOG_TAG, "BCG EPG Transport mode: [" + transportMode.getAddress() + ":" + transportMode.getPort() + "]");
 
             } else {
                 skip(parser);
