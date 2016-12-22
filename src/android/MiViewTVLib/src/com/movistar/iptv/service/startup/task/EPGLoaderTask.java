@@ -17,16 +17,8 @@ public class EPGLoaderTask extends AsyncTaskWithProgress<Integer> {
 
         try {
 
-            Log.e(LOG_TAG, "EPGLoaderTask on background");
-
-            if (!isCancelled()) {
-
-                Log.e(LOG_TAG, "EPGManager downloading..");
-
+            if (!isCancelled())
                 EPGManager.getInstance().download(this);
-
-                Log.e(LOG_TAG, "EPGManager downloaded");
-            }
 
         } catch (EPGException e)
         {
