@@ -6,7 +6,6 @@ import com.movistar.iptv.platform.stb.sds.SDSConstants;
 
 import com.movistar.iptv.platform.stb.sds.dvbstp.DvbStpReader;
 import com.movistar.iptv.platform.stb.sds.dvbstp.DvbStpContent;
-import com.movistar.iptv.platform.stb.sds.dvbstp.DvbStpBinaryContent;
 import com.movistar.iptv.platform.stb.sds.dvbstp.DvbStpException;
 
 import com.movistar.iptv.platform.stb.sds.ServiceDiscoveryManager;
@@ -23,57 +22,69 @@ import com.movistar.iptv.util.concurrent.AsyncTaskProgressCallback;
 
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 public class EPGManager {
     private static final String LOG_TAG = EPGManager.class.getSimpleName();
 
     private static EPGManager instance = new EPGManager();
 
+    private Map<String, TransportMode> sources = new LinkedHashMap<String, TransportMode>();
+    private Map<Integer, List<DvbStpContent>> epg = new LinkedHashMap<Integer, List<DvbStpContent>>();
+
     private boolean loaded = false;
 
     public static EPGManager getInstance() { return instance; }
 
     public void download(AsyncTaskProgressCallback progressCallback) throws EPGException {
-        DvbStpReader<DvbStpBinaryContent> dvbStpReader = null;
-        int[] days = new int[] {0, 1, 2, -1, -2, 3, -3, 4};
-        int numDay = 0;
+        int day = 0;
+        int provisionalDay;
+        DvbStpReader dvbStpReader = null;
 
         loaded = false;
 
         try {
 
-            Log.v(LOG_TAG, "Estoy en el EPGManager");
-
             BCGDiscoveryData bcgDiscoveryData = ServiceDiscoveryManager.getInstance().getBCGDiscoveryData();
-
-            Log.v(LOG_TAG, "Estoy en el EPGManager 2");
 
             BCG bcg = bcgDiscoveryData.getBroadContentGuide("EPG");
 
-            Log.v(LOG_TAG, "Estoy en el EPGManager 3");
-
-            Log.v(LOG_TAG, "BCG EPG " + bcg.getTransportModes().size());
-
             for (TransportMode transportMode : bcg.getTransportModes()) {
 
-                Log.v(LOG_TAG, "EPG Transport mode: address = [" + transportMode.getAddress() + "], port=[" + transportMode.getPort() + "]");
+                if (sources.containsKey(transportMode.getSource()) == false) {
 
-                List<Integer> contentIds = new LinkedList<Integer>();
+                    List<Integer> contentIds = new LinkedList<Integer>();
 
-                for (Integer segmentId : transportMode.getSegmentIds()) {
-                    contentIds.add(DvbStpBinaryContent.generateId(
-                            SDSConstants.SDS_CONTENT_GUIDE_DISCOVERY, segmentId));
+                    for (Integer segmentId : transportMode.getSegmentIds()) {
+                        contentIds.add(DvbStpContent.generateId(
+                                SDSConstants.SDS_CONTENT_GUIDE_DISCOVERY, segmentId));
+                    }
+
+                    dvbStpReader = DvbStpReader.open(transportMode.getAddress(), transportMode.getPort());
+                    List<DvbStpContent> epgContents = dvbStpReader.download(contentIds);
+                    dvbStpReader.close();
+
+                    for (DvbStpContent epgContent : epgContents) {
+
+                        try {
+
+                            provisionalDay = decodeDay(epgContent.getBytes(), epgContent.getLength());
+                        } catch (UTCTimeException e) {
+                            throw new EPGException("EPGManager: Downloading the program guide failed", e);
+                        }
+
+                        if (provisionalDay != 0xff) {
+                            day = provisionalDay;
+                            break;
+                        }
+                    }
+
+                    sources.put(transportMode.getSource(), transportMode);
+                    epg.put(day, epgContents);
+
+                    progressCallback.publishProgress(day);
                 }
-
-                dvbStpReader = DvbStpReader.<DvbStpBinaryContent>open(transportMode.getAddress(), transportMode.getPort());
-                List<DvbStpBinaryContent> epgContents = dvbStpReader.download(contentIds);
-                dvbStpReader.close();
-
-                for (DvbStpBinaryContent content : epgContents) {
-                    Log.v(LOG_TAG, "EPG Content type: " + content.getType());
-                }
-
-                progressCallback.publishProgress(days[numDay++]);
             }
 
         } catch (DvbStpException e) {
