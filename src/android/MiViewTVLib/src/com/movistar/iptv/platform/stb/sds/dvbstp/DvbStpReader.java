@@ -19,7 +19,7 @@ import com.movistar.iptv.util.net.MulticastSocketHandler;
  */
 
 
-public class DvbStpReader<T extends DvbStpContent> {
+public class DvbStpReader {
 
     private static final String LOG_TAG = DvbStpReader.class.getSimpleName();
 
@@ -52,15 +52,15 @@ public class DvbStpReader<T extends DvbStpContent> {
         }
     }
 
-    public static <T extends DvbStpContent> DvbStpReader<T> open (String address, int port) throws DvbStpException {
-        return new DvbStpReader<T>(address, port);
+    public static DvbStpReader open (String address, int port) throws DvbStpException {
+        return new DvbStpReader(address, port);
     }
 
-    public <T extends DvbStpContent> List<T> download(List<Integer> contentIds) throws DvbStpException {
+    public List<DvbStpContent> download(List<Integer> contentIds) throws DvbStpException {
         DvbStpHeader header;
         DatagramPacket packet;
-        T dvbStpContent = null;
-        Map<Integer, T> dvbStpContents = new LinkedHashMap<Integer, T>();
+        DvbStpContent dvbStpContent = null;
+        Map<Integer, DvbStpContent> dvbStpContents = new LinkedHashMap<Integer, DvbStpContent>();
 
         long initialTime = SystemClock.elapsedRealtime(); // TODO: bail out on exceeded time limit
         long nowTime = initialTime;
@@ -84,9 +84,9 @@ public class DvbStpReader<T extends DvbStpContent> {
 
                 payloadLength = packet.getLength() - header.getLength() - (header.getCRC() * 4);
 
-                if (null == (dvbStpContent = dvbStpContents.<T>get(header.getId()))) {
+                if (null == (dvbStpContent = dvbStpContents.get(header.getId()))) {
 
-                    dvbStpContent = DvbStpContentFactory.<T>create(header.getId(),
+                    dvbStpContent = new DvbStpContent(header.getId(),
                             header.getLastSectionNumber() + 1,
                             nowTime, header.getSegmentVersion());
 
@@ -104,7 +104,7 @@ public class DvbStpReader<T extends DvbStpContent> {
 
                     if (dvbStpContent.getVersion() != header.getSegmentVersion()) {
 
-                        dvbStpContent = DvbStpContentFactory.<T>create(header.getId(),
+                        dvbStpContent = new DvbStpContent(header.getId(),
                                 header.getLastSectionNumber() + 1,
                                 nowTime, header.getSegmentVersion());
 
@@ -121,8 +121,8 @@ public class DvbStpReader<T extends DvbStpContent> {
             }
         }
 
-        for (Map.Entry<Integer, T> entry : dvbStpContents.entrySet()) {
-            T content = entry.getValue();
+        for (Map.Entry<Integer, DvbStpContent> entry : dvbStpContents.entrySet()) {
+            DvbStpContent content = entry.getValue();
 
             if (!content.isBufferCompleted())
                 dvbStpContents.remove(content.getId());
@@ -130,7 +130,7 @@ public class DvbStpReader<T extends DvbStpContent> {
 
         Log.d(LOG_TAG, "finished DvbStp processing.");
 
-        return Collections.<T>list(Collections.<T>enumeration(dvbStpContents.values()));
+        return Collections.list(Collections.enumeration(dvbStpContents.values()));
     }
 
     public void close() {
