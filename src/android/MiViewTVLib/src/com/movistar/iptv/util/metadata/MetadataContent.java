@@ -11,15 +11,6 @@ import java.nio.charset.StandardCharsets;
 
 public abstract class MetadataContent<K> {
 
-    /**
-     * Constants
-     */
-    public static final int TYPE_ASCII   = 0x00;
-    public static final int TYPE_BINARY  = 0x01;
-    public static final int TYPE_XML     = 0x02;
-    public static final int TYPE_XMLBIN  = 0x03;
-    public static final int TYPE_UNKNOWN = 0xFF;
-
     public static final int COMPLETED = 0;
 
     private K id;
@@ -28,20 +19,18 @@ public abstract class MetadataContent<K> {
     private long timestamp;
     private int totalFragments;
     private int completedFragments;
-    private String string;
-    private int bufferLength;
+    private int length;
     public byte[] bytes;
     private byte[][] fragmentsBuffer;
     private int CRC;
 
-    public MetadataContent(K id, int fragments, int type, long time) {
-        this(id, fragments, type, time, 0);
+    public MetadataContent(K id, int fragments, long time) {
+        this(id, fragments, time, 0);
     }
 
-    public MetadataContent(K id, int fragments, int type, long time, int version) {
+    public MetadataContent(K id, int fragments, long time, int version) {
         this.id = id;
         this.totalFragments = fragments;
-        this.type = type;
         this.fragmentsBuffer = new byte[fragments][];
         this.timestamp = time;
         this.version = version;
@@ -63,22 +52,16 @@ public abstract class MetadataContent<K> {
         return completedFragments;
     }
 
-    public int getBufferLength() {
-        return bufferLength;
+    public int getLength() {
+        return length;
     }
 
     public int getCRC() {
         return CRC;
     }
 
-    public int getType() { return type; }
-
     public long getTimestamp() {
         return timestamp;
-    }
-
-    public String getString() {
-        return string;
     }
 
     public byte[] getBytes() {
@@ -102,13 +85,13 @@ public abstract class MetadataContent<K> {
             fragmentsBuffer[fragment] = new byte[fragmentLength];
             System.arraycopy(fragmentBuffer, fragmentOffset + headerOffset, fragmentsBuffer[fragment], 0, fragmentLength);
             completedFragments++;
-            bufferLength += fragmentLength;
+            length += fragmentLength;
         }
         
         if ((completedFragments == totalFragments) && (null != this.fragmentsBuffer)) {
             // tenemos el fichero completo
             int offset = 0;
-            bytes = new byte[bufferLength];
+            bytes = new byte[length];
 
             for (byte[] currentBuffer : fragmentsBuffer) {
                 System.arraycopy(currentBuffer, 0, bytes, offset, currentBuffer.length);
@@ -117,11 +100,6 @@ public abstract class MetadataContent<K> {
             
             fragmentsBuffer = null;
             
-            if (type == TYPE_ASCII || type == TYPE_XML) {
-                string = new String(bytes, StandardCharsets.UTF_8);
-                bytes = null;
-            }
-
             // TODO: verify CRC
             return COMPLETED;
         }
@@ -130,14 +108,10 @@ public abstract class MetadataContent<K> {
     }
     
     public ByteArrayInputStream getByteArrayInputStream() {
-        if (null != string)
-            return new ByteArrayInputStream(string.getBytes());
-        else
-            return null;
+        return new ByteArrayInputStream(getBytes());
     }
 
     public void cleanup() {
-        string = null;
         fragmentsBuffer = null;
         completedFragments = 0;
     }

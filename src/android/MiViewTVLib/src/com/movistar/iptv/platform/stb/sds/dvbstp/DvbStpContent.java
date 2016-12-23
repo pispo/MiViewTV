@@ -2,14 +2,14 @@ package com.movistar.iptv.platform.stb.sds.dvbstp;
 
 import com.movistar.iptv.util.metadata.MetadataContent;
 
-public abstract class DvbStpContent extends MetadataContent<Integer> {
+public class DvbStpContent extends MetadataContent<Integer> {
 
-    public DvbStpContent(Integer id, int fragments, int type, long time) {
-        super(id, fragments, type, time, 0);
+    public DvbStpContent(Integer id, int fragments, long time) {
+        super(id, fragments, time, 0);
     }
 
-    public DvbStpContent(Integer id, int fragments, int type, long time, int version) {
-        super(id, fragments, type, time, version);
+    public DvbStpContent(Integer id, int fragments, long time, int version) {
+        super(id, fragments, time, version);
     }
 
     public Integer getId() {

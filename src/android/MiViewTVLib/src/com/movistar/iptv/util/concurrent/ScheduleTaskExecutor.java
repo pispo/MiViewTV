@@ -40,8 +40,27 @@ public class ScheduleTaskExecutor {
         timerAsync.schedule(timerTaskAsync, delay * 1000);
     }
 
-    public static <T> void scheduleWithFixedDelay(AsyncTaskWithProgress<T> task, long initialDelay, long delay, TimeUnit unit) {
-        //task.executeOnExecutor(concurrentExecutor);
+    public static <T> void schedule(final AsyncTaskWithProgress<T> task, long delay) {
+        final Handler handler = new Handler();
+        Timer timerAsync = new Timer();
+        TimerTask timerTaskAsync = new TimerTask() {
+
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        try {
+                            task.executeOnExecutor(executorService);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        };
+
+        timerAsync.schedule(timerTaskAsync, delay * 1000);
     }
 
     public static void cancelAllTasks() {
